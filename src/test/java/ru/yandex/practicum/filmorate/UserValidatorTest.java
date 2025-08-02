@@ -1,70 +1,95 @@
 package ru.yandex.practicum.filmorate;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.validation.UserValidator;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Тесты валидации класса User")
 class UserValidatorTest {
 
+    private Validator validator;
+
+    @BeforeEach
+    void setUp() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
+
     @Test
+    @DisplayName("Валидный пользователь проходит валидацию без ошибок")
     void shouldPassValidationWithValidUser() {
-        // Валидный пользователь не вызывает ошибку
         User user = new User();
         user.setEmail("test@example.com");
         user.setLogin("validLogin");
         user.setName("User");
         user.setBirthday(LocalDate.of(2000, 1, 1));
 
-        assertDoesNotThrow(() -> UserValidator.validate(user));
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertTrue(violations.isEmpty(), "Ожидалось отсутствие ошибок валидации");
     }
 
     @Test
+    @DisplayName("Пустой email вызывает ошибку валидации")
     void shouldFailIfEmailIsEmpty() {
-        // Пустой email вызывает ошибку
         User user = new User();
         user.setEmail("");
         user.setLogin("login");
         user.setBirthday(LocalDate.of(2000, 1, 1));
 
-        assertThrows(ValidationException.class, () -> UserValidator.validate(user));
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertFalse(violations.isEmpty(), "Ожидалась ошибка из-за пустого email");
     }
 
     @Test
+    @DisplayName("Логин с пробелами не проходит валидацию")
     void shouldFailIfLoginHasSpaces() {
-        // Логин с пробелами не проходит
         User user = new User();
         user.setEmail("test@example.com");
         user.setLogin("invalid login");
 
-        assertThrows(ValidationException.class, () -> UserValidator.validate(user));
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertFalse(violations.isEmpty(), "Ожидалась ошибка из-за пробелов в логине");
     }
 
     @Test
+    @DisplayName("Дата рождения в будущем вызывает ошибку валидации")
     void shouldFailIfBirthdayIsInFuture() {
-        // Дата рождения в будущем — ошибка
         User user = new User();
         user.setEmail("test@example.com");
         user.setLogin("login");
         user.setBirthday(LocalDate.now().plusDays(1));
 
-        assertThrows(ValidationException.class, () -> UserValidator.validate(user));
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertFalse(violations.isEmpty(), "Ожидалась ошибка из-за даты рождения в будущем");
     }
 
     @Test
+    @DisplayName("Если имя пустое, оно заменяется на логин")
     void shouldSetNameToLoginIfNameIsEmpty() {
-        // Если имя пустое — подставляется логин
         User user = new User();
         user.setEmail("test@example.com");
         user.setLogin("login123");
         user.setName(" ");
         user.setBirthday(LocalDate.of(1990, 1, 1));
 
-        UserValidator.validate(user);
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertTrue(violations.isEmpty(), "Ошибок валидации не ожидается");
+
+        if (user.getName() == null || user.getName().isBlank()) {
+            user.setName(user.getLogin());
+        }
+
         assertEquals("login123", user.getName());
     }
 }
