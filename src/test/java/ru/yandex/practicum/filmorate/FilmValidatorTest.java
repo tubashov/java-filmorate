@@ -1,8 +1,6 @@
 package ru.yandex.practicum.filmorate;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import jakarta.validation.ConstraintViolation;
@@ -16,14 +14,21 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Тесты валидации класса Film")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class FilmValidatorTest {
 
+    private ValidatorFactory factory;
     private Validator validator;
 
-    @BeforeEach
+    @BeforeAll
     void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
+    }
+
+    @AfterAll
+    void tearDown() {
+        factory.close();
     }
 
     @Test
