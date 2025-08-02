@@ -1,5 +1,5 @@
+# Компиляционные артефакты
 *.class
-*.log
 *.jar
 *.war
 *.nar
@@ -10,37 +10,29 @@
 hs_err_pid*
 out/
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
+# IDE
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# macOS
+.DS_Store
 
-### VS Code ###
-.vscode/
+# Логи
+*.log
+.idea/*.log
 
+# Базы данных
 *.db
 db/*
+
+# VSCode
+.vscode/
+
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.properties
+
+# Windows системные
+Thumbs.db
