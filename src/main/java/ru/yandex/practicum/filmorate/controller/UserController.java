@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
-import static ru.yandex.practicum.filmorate.validation.UserValidator.validate;
 
+import jakarta.validation.Valid; // Обратите внимание на импорт
 import java.util.*;
 
 @Slf4j
@@ -17,15 +17,9 @@ public class UserController {
     private int nextId = 1;
 
     @PostMapping
-    public User create(@RequestBody User user) {
+    public User create(@RequestBody @Valid User user) {
+        // @Valid поручает Spring автоматически проверить поля объекта User согласно аннотациям в классе
         log.info("Получен запрос на добавление пользователя: {}", user);
-
-        try {
-            validate(user);
-        } catch (ValidationException e) {
-            log.warn("Ошибка валидации при создании пользователя: {}", e.getMessage());
-            throw e;
-        }
 
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
@@ -38,19 +32,12 @@ public class UserController {
     }
 
     @PutMapping
-    public User update(@RequestBody User user) {
+    public User update(@RequestBody @Valid User user) {
         log.info("Получен запрос на обновление пользователя: {}", user);
 
         if (!users.containsKey(user.getId())) {
             log.warn("Попытка обновления несуществующего пользователя с ID: {}", user.getId());
             throw new ValidationException("Пользователь с ID " + user.getId() + " не найден");
-        }
-
-        try {
-            validate(user);
-        } catch (ValidationException e) {
-            log.warn("Ошибка валидации при обновлении пользователя: {}", e.getMessage());
-            throw e;
         }
 
         if (user.getName() == null || user.getName().isBlank()) {
