@@ -1,72 +1,93 @@
 package ru.yandex.practicum.filmorate;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.validation.FilmValidator;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Тесты валидации класса Film")
 class FilmValidatorTest {
 
+    private Validator validator;
+
+    @BeforeEach
+    void setUp() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
+
     @Test
+    @DisplayName("Корректный фильм проходит валидацию")
     void shouldPassValidationWithValidFilm() {
-        // Корректный фильм проходит валидацию
         Film film = new Film();
         film.setName("Film");
         film.setDescription("Short description");
         film.setReleaseDate(LocalDate.of(2000, 1, 1));
         film.setDuration(120);
 
-        assertDoesNotThrow(() -> FilmValidator.validate(film));
+        Set<ConstraintViolation<Film>> violations = validator.validate(film);
+        assertTrue(violations.isEmpty(), "Ожидалось отсутствие ошибок валидации");
     }
 
     @Test
+    @DisplayName("Пустое название фильма вызывает ошибку")
     void shouldFailIfNameIsEmpty() {
-        // Пустое название — ошибка
         Film film = new Film();
         film.setName(" ");
         film.setDescription("desc");
         film.setReleaseDate(LocalDate.of(2000, 1, 1));
         film.setDuration(120);
 
-        assertThrows(ValidationException.class, () -> FilmValidator.validate(film));
+        Set<ConstraintViolation<Film>> violations = validator.validate(film);
+        assertFalse(violations.isEmpty(), "Ожидалась ошибка из-за пустого названия");
     }
 
     @Test
+    @DisplayName("Описание длиной более 200 символов вызывает ошибку")
     void shouldFailIfDescriptionTooLong() {
-        // Описание > 200 символов — ошибка
         Film film = new Film();
         film.setName("Film");
         film.setDescription("a".repeat(201));
         film.setReleaseDate(LocalDate.of(2000, 1, 1));
         film.setDuration(120);
 
-        assertThrows(ValidationException.class, () -> FilmValidator.validate(film));
+        Set<ConstraintViolation<Film>> violations = validator.validate(film);
+        assertFalse(violations.isEmpty(), "Ожидалась ошибка из-за слишком длинного описания");
     }
 
     @Test
+    @DisplayName("Дата релиза раньше 28.12.1895 вызывает ошибку")
     void shouldFailIfDateBefore1895() {
-        // Релиз до 28.12.1895 — ошибка
         Film film = new Film();
         film.setName("Film");
         film.setDescription("desc");
         film.setReleaseDate(LocalDate.of(1800, 1, 1));
         film.setDuration(120);
 
-        assertThrows(ValidationException.class, () -> FilmValidator.validate(film));
+        Set<ConstraintViolation<Film>> violations = validator.validate(film);
+        assertFalse(violations.isEmpty(), "Ожидалась ошибка из-за слишком ранней даты релиза");
     }
 
     @Test
+    @DisplayName("Продолжительность фильма равная 0 вызывает ошибку")
     void shouldFailIfDurationIsZero() {
-        // Продолжительность ≤ 0 — ошибка
         Film film = new Film();
         film.setName("Film");
         film.setDescription("desc");
         film.setReleaseDate(LocalDate.of(2000, 1, 1));
         film.setDuration(0);
 
-        assertThrows(ValidationException.class, () -> FilmValidator.validate(film));
+        Set<ConstraintViolation<Film>> violations = validator.validate(film);
+        assertFalse(violations.isEmpty(), "Ожидалась ошибка из-за нулевой продолжительности");
     }
 }
