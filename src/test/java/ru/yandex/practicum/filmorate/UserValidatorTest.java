@@ -1,8 +1,6 @@
 package ru.yandex.practicum.filmorate;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.yandex.practicum.filmorate.model.User;
 
 import jakarta.validation.ConstraintViolation;
@@ -16,14 +14,21 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Тесты валидации класса User")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class UserValidatorTest {
 
+    private ValidatorFactory factory;
     private Validator validator;
 
-    @BeforeEach
+    @BeforeAll
     void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
+    }
+
+    @AfterAll
+    void tearDown() {
+        factory.close();
     }
 
     @Test
@@ -83,13 +88,15 @@ class UserValidatorTest {
         user.setName(" ");
         user.setBirthday(LocalDate.of(1990, 1, 1));
 
+        // Проверяем, что валидация проходит
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertTrue(violations.isEmpty(), "Ошибок валидации не ожидается");
 
+        // Симуляция логики замены имени на логин
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
         }
 
-        assertEquals("login123", user.getName());
+        assertEquals("login123", user.getName(), "Имя должно быть заменено на логин");
     }
 }
