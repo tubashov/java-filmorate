@@ -17,4 +17,3 @@ public interface UserStorage {
 
     List<User> getAllUsers();
 }
-
