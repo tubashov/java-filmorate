@@ -21,6 +21,7 @@ public class UserService {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public User addUser(User user) {
         return userStorage.addUser(user);
     }
@@ -34,14 +35,17 @@ public class UserService {
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
         }
+=======
+    public User addUser(User user) {
+>>>>>>> 4c4e1a9 (Исправление метода removeFriend.)
         return userStorage.addUser(user);
     }
 
-    // Обновление пользователя
     public User updateUser(User user) {
         if (userStorage.getUserById(user.getId()).isEmpty()) {
             throw new UserNotFoundException("User with ID " + user.getId() + " not found");
         }
+<<<<<<< HEAD
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
 >>>>>>> f73da8e (Исправление ошибок в методах.)
@@ -50,18 +54,27 @@ public class UserService {
     }
 
 <<<<<<< HEAD
+=======
+        return userStorage.updateUser(user);
+    }
+
+>>>>>>> 4c4e1a9 (Исправление метода removeFriend.)
     public List<User> getAllUsers() {
         return userStorage.getAllUsers();
     }
 
+<<<<<<< HEAD
 =======
 =======
     // Получение пользователя по ID
+=======
+>>>>>>> 4c4e1a9 (Исправление метода removeFriend.)
     public User getUserById(int id) {
         return userStorage.getUserById(id)
                 .orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found"));
     }
 
+<<<<<<< HEAD
 >>>>>>> f73da8e (Исправление ошибок в методах.)
     // Получение всех пользователей
     public List<User> getAllUsers() {
@@ -102,10 +115,18 @@ public class UserService {
         }
 =======
     // Добавление друга
+=======
+>>>>>>> 4c4e1a9 (Исправление метода removeFriend.)
     public void addFriend(int userId, int friendId) {
 >>>>>>> f73da8e (Исправление ошибок в методах.)
         User user = getUserById(userId);
-        User friend = getUserById(friendId);
+
+        Optional<User> friendOpt = userStorage.getUserById(friendId);
+        if (friendOpt.isEmpty()) {
+            // Если друга нет — просто ничего не делаем
+            return;
+        }
+        User friend = friendOpt.get();
 
         user.getFriends().add(friendId);
         friend.getFriends().add(userId);
@@ -118,7 +139,6 @@ public class UserService {
         userStorage.updateUser(friend);
     }
 
-    // Удаление друга
     public void removeFriend(int userId, int friendId) {
 <<<<<<< HEAD
         User user = userStorage.getUserById(userId)
@@ -131,11 +151,13 @@ public class UserService {
 
 =======
         User user = getUserById(userId);
-        User friend = getUserById(friendId);
 
-        if (!user.getFriends().contains(friendId)) {
-            throw new UserNotFoundException("Friend with ID " + friendId + " is not in user's friends list");
+        Optional<User> friendOpt = userStorage.getUserById(friendId);
+        if (friendOpt.isEmpty()) {
+            // Если друга нет в базе — тихо завершаем
+            return;
         }
+        User friend = friendOpt.get();
 
         user.getFriends().remove(friendId);
         friend.getFriends().remove(userId);
@@ -148,7 +170,6 @@ public class UserService {
         userStorage.updateUser(friend);
     }
 
-    // Получение списка друзей
     public List<User> getFriends(int userId) {
         User user = getUserById(userId);
 <<<<<<< HEAD
@@ -167,19 +188,25 @@ public class UserService {
                 .filter(friends2::contains)
 =======
         return user.getFriends().stream()
-                .map(this::getUserById)
+                .map(id -> userStorage.getUserById(id))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toList());
     }
 
-    // Получение общих друзей
-    public List<User> getCommonFriends(int userId, int otherUserId) {
-        User user = getUserById(userId);
-        User otherUser = getUserById(otherUserId);
+    public List<User> getCommonFriends(int userId, int otherId) {
+        List<User> friends1 = getFriends(userId);
+        List<User> friends2 = getFriends(otherId);
 
+<<<<<<< HEAD
         return user.getFriends().stream()
                 .filter(otherUser.getFriends()::contains)
                 .map(this::getUserById)
 >>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
+=======
+        return friends1.stream()
+                .filter(friends2::contains)
+>>>>>>> 4c4e1a9 (Исправление метода removeFriend.)
                 .collect(Collectors.toList());
     }
 }

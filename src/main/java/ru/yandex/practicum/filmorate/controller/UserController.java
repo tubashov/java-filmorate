@@ -26,10 +26,14 @@ public class UserController {
             user.setName(user.getLogin());
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
         return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
 =======
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
 >>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
+=======
+        return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
+>>>>>>> 4c4e1a9 (Исправление метода removeFriend.)
     }
 
     @GetMapping
