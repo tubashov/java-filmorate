@@ -21,7 +21,7 @@ public class User {
 
     private String name; // допустим null или пустое — логика в контроллере сама заменяет на login
 
-    @Past(message = "Дата рождения должна быть в прошлом")
+    @PastOrPresent(message = "Дата рождения не может быть в будущем")
     private LocalDate birthday;
 
     // Множество id друзей — для хранения списка друзей пользователя
