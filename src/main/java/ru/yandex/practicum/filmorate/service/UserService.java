@@ -20,6 +20,7 @@ public class UserService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public User addUser(User user) {
         return userStorage.addUser(user);
     }
@@ -27,20 +28,47 @@ public class UserService {
     public User updateUser(User user) {
         if (userStorage.getUserById(user.getId()).isEmpty()) {
             throw new NotFoundException("User with ID " + user.getId() + " not found");
+=======
+    // Создание пользователя
+    public User createUser(User user) {
+        if (user.getName() == null || user.getName().isBlank()) {
+            user.setName(user.getLogin());
+        }
+        return userStorage.addUser(user);
+    }
+
+    // Обновление пользователя
+    public User updateUser(User user) {
+        if (userStorage.getUserById(user.getId()).isEmpty()) {
+            throw new UserNotFoundException("User with ID " + user.getId() + " not found");
+        }
+        if (user.getName() == null || user.getName().isBlank()) {
+            user.setName(user.getLogin());
+>>>>>>> f73da8e (Исправление ошибок в методах.)
         }
         return userStorage.updateUser(user);
     }
 
+<<<<<<< HEAD
     public List<User> getAllUsers() {
         return userStorage.getAllUsers();
     }
 
 =======
+=======
+    // Получение пользователя по ID
+    public User getUserById(int id) {
+        return userStorage.getUserById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found"));
+    }
+
+>>>>>>> f73da8e (Исправление ошибок в методах.)
     // Получение всех пользователей
     public List<User> getAllUsers() {
         return userStorage.getAllUsers();
     }
 
+<<<<<<< HEAD
     // Создание пользователя
     public User createUser(User user) {
         return userStorage.addUser(user);
@@ -72,15 +100,25 @@ public class UserService {
         if (userId == friendId) {
             throw new IllegalArgumentException("Нельзя добавить самого себя в друзья");
         }
+=======
+    // Добавление друга
+    public void addFriend(int userId, int friendId) {
+>>>>>>> f73da8e (Исправление ошибок в методах.)
         User user = getUserById(userId);
         User friend = getUserById(friendId);
+
         user.getFriends().add(friendId);
         friend.getFriends().add(userId);
+<<<<<<< HEAD
 >>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
+=======
+
+>>>>>>> f73da8e (Исправление ошибок в методах.)
         userStorage.updateUser(user);
         userStorage.updateUser(friend);
     }
 
+    // Удаление друга
     public void removeFriend(int userId, int friendId) {
 <<<<<<< HEAD
         User user = userStorage.getUserById(userId)
@@ -94,13 +132,19 @@ public class UserService {
 =======
         User user = getUserById(userId);
         User friend = getUserById(friendId);
+
         user.getFriends().remove(friendId);
         friend.getFriends().remove(userId);
+<<<<<<< HEAD
 >>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
+=======
+
+>>>>>>> f73da8e (Исправление ошибок в методах.)
         userStorage.updateUser(user);
         userStorage.updateUser(friend);
     }
 
+    // Получение списка друзей
     public List<User> getFriends(int userId) {
         User user = getUserById(userId);
 <<<<<<< HEAD
@@ -123,20 +167,15 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    // Получение общих друзей
     public List<User> getCommonFriends(int userId, int otherUserId) {
         User user = getUserById(userId);
         User otherUser = getUserById(otherUserId);
+
         return user.getFriends().stream()
                 .filter(otherUser.getFriends()::contains)
                 .map(this::getUserById)
 >>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
                 .collect(Collectors.toList());
-    }
-
-    public User updateUser(User user) {
-        if (user.getId() == 0 || userStorage.getUserById(user.getId()).isEmpty()) {
-            throw new UserNotFoundException("User with ID " + user.getId() + " not found");
-        }
-        return userStorage.updateUser(user);
     }
 }
