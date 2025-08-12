@@ -20,67 +20,62 @@ public class UserService {
         this.userStorage = userStorage;
     }
 
+    // Получение всех пользователей
+    public List<User> getAllUsers() {
+        return userStorage.getAllUsers();
+    }
+
     // Создание пользователя
     public User createUser(User user) {
         return userStorage.addUser(user);
     }
 
-    // Получение пользователя по ID
     public User getUserById(int id) {
         Optional<User> user = userStorage.getUserById(id);
         return user.orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found"));
     }
 
-    // Добавление друга
     public void addFriend(int userId, int friendId) {
+        if (userId == friendId) {
+            throw new IllegalArgumentException("Нельзя добавить самого себя в друзья");
+        }
         User user = getUserById(userId);
         User friend = getUserById(friendId);
-        // Логика добавления друга
         user.getFriends().add(friendId);
         friend.getFriends().add(userId);
         userStorage.updateUser(user);
         userStorage.updateUser(friend);
     }
 
-    // Удаление друга
     public void removeFriend(int userId, int friendId) {
         User user = getUserById(userId);
         User friend = getUserById(friendId);
-        // Логика удаления друга
-        user.getFriends().remove(friend);
-        friend.getFriends().remove(user);
+        user.getFriends().remove(friendId);
+        friend.getFriends().remove(userId);
         userStorage.updateUser(user);
         userStorage.updateUser(friend);
     }
 
-    // Получение списка друзей
     public List<User> getFriends(int userId) {
         User user = getUserById(userId);
-        return user.getFriends().stream()  // Извлекаем ID друзей
-                .map(this::getUserById)     // Преобразуем ID в объекты User
-                .collect(Collectors.toList());  // Собираем в список
+        return user.getFriends().stream()
+                .map(this::getUserById)
+                .collect(Collectors.toList());
     }
 
-    // Получение общих друзей
     public List<User> getCommonFriends(int userId, int otherUserId) {
         User user = getUserById(userId);
         User otherUser = getUserById(otherUserId);
-
-        // Получаем общих друзей по ID
         return user.getFriends().stream()
-                .filter(otherUser.getFriends()::contains) // Фильтруем по ID общих друзей
-                .map(this::getUserById)  // Преобразуем ID в объекты User
-                .collect(Collectors.toList());  // Собираем в список объектов User
+                .filter(otherUser.getFriends()::contains)
+                .map(this::getUserById)
+                .collect(Collectors.toList());
     }
 
-    // Обновление пользователя
     public User updateUser(User user) {
-        // Проверяем, существует ли пользователь
         if (user.getId() == 0 || userStorage.getUserById(user.getId()).isEmpty()) {
             throw new UserNotFoundException("User with ID " + user.getId() + " not found");
         }
-        // Обновляем данные
         return userStorage.updateUser(user);
     }
-
 }
