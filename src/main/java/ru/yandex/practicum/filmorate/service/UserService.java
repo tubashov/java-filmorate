@@ -39,14 +39,10 @@ public class UserService {
     }
 
     public void addFriend(int userId, int friendId) {
-        User user = getUserById(userId);
-
-        Optional<User> friendOpt = userStorage.getUserById(friendId);
-        if (friendOpt.isEmpty()) {
-            // Если друга нет — просто ничего не делаем
-            return;
-        }
-        User friend = friendOpt.get();
+        User user = userStorage.getUserById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User with id=" + userId + " not found"));
+        User friend = userStorage.getUserById(friendId)
+                .orElseThrow(() -> new UserNotFoundException("User with id=" + friendId + " not found"));
 
         user.getFriends().add(friendId);
         friend.getFriends().add(userId);
@@ -56,14 +52,10 @@ public class UserService {
     }
 
     public void removeFriend(int userId, int friendId) {
-        User user = getUserById(userId);
-
-        Optional<User> friendOpt = userStorage.getUserById(friendId);
-        if (friendOpt.isEmpty()) {
-            // Если друга нет в базе — тихо завершаем
-            return;
-        }
-        User friend = friendOpt.get();
+        User user = userStorage.getUserById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User with id=" + userId + " not found"));
+        User friend = userStorage.getUserById(friendId)
+                .orElseThrow(() -> new UserNotFoundException("User with id=" + friendId + " not found"));
 
         user.getFriends().remove(friendId);
         friend.getFriends().remove(userId);
