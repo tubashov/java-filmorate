@@ -95,6 +95,7 @@ public class UserService {
 
     public void addFriend(int userId, int friendId) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         User user = userStorage.getUserById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
         User friend = userStorage.getUserById(friendId)
@@ -127,6 +128,12 @@ public class UserService {
             return;
         }
         User friend = friendOpt.get();
+=======
+        User user = userStorage.getUserById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User with id=" + userId + " not found"));
+        User friend = userStorage.getUserById(friendId)
+                .orElseThrow(() -> new UserNotFoundException("User with id=" + friendId + " not found"));
+>>>>>>> 13655cc (Исправление ошибок.)
 
         user.getFriends().add(friendId);
         friend.getFriends().add(userId);
@@ -140,6 +147,7 @@ public class UserService {
     }
 
     public void removeFriend(int userId, int friendId) {
+<<<<<<< HEAD
 <<<<<<< HEAD
         User user = userStorage.getUserById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
@@ -158,6 +166,12 @@ public class UserService {
             return;
         }
         User friend = friendOpt.get();
+=======
+        User user = userStorage.getUserById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User with id=" + userId + " not found"));
+        User friend = userStorage.getUserById(friendId)
+                .orElseThrow(() -> new UserNotFoundException("User with id=" + friendId + " not found"));
+>>>>>>> 13655cc (Исправление ошибок.)
 
         user.getFriends().remove(friendId);
         friend.getFriends().remove(userId);

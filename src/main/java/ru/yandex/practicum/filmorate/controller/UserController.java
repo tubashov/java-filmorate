@@ -83,16 +83,18 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUser(user));
     }
 
-    @PutMapping("/{id}/friends/{friendId}")
-    public ResponseEntity<Void> addFriend(@PathVariable int id, @PathVariable int friendId) {
-        userService.addFriend(id, friendId);
-        return ResponseEntity.noContent().build();
+    // Добавить друга
+    @PutMapping("/{userId}/friends/{friendId}")
+    public ResponseEntity<Void> addFriend(@PathVariable int userId, @PathVariable int friendId) {
+        userService.addFriend(userId, friendId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @DeleteMapping("/{id}/friends/{friendId}")
-    public ResponseEntity<Void> removeFriend(@PathVariable int id, @PathVariable int friendId) {
-        userService.removeFriend(id, friendId);
-        return ResponseEntity.noContent().build();
+    // Удалить друга
+    @DeleteMapping("/{userId}/friends/{friendId}")
+    public ResponseEntity<Void> removeFriend(@PathVariable int userId, @PathVariable int friendId) {
+        userService.removeFriend(userId, friendId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/{id}/friends")
