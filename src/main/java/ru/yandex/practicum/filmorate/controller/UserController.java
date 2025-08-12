@@ -66,4 +66,9 @@ public class UserController {
     public ResponseEntity<List<User>> getCommonFriends(@PathVariable int id, @PathVariable int otherId) {
         return ResponseEntity.ok(userService.getCommonFriends(id, otherId));
     }
+
+    @PutMapping
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(user));
+    }
 }
