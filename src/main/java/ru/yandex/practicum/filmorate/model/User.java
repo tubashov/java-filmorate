@@ -24,6 +24,11 @@ public class User {
     @Past(message = "Дата рождения не может быть в будущем")
     private LocalDate birthday;
 
+<<<<<<< HEAD
     // Map с ID других пользователей и статусом дружбы
     private Map<Integer, FriendshipStatus> friends = new HashMap<>();
+=======
+    // Множество id друзей
+    private Set<Integer> friends = new HashSet<>();
+>>>>>>> f73da8e (Исправление ошибок в методах.)
 }
