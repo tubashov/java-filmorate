@@ -25,7 +25,11 @@ public class UserController {
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
         }
+<<<<<<< HEAD
         return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
+=======
+        return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
+>>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
     }
 
     @GetMapping
@@ -36,6 +40,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
         return ResponseEntity.ok(userService.getUserById(id));
+<<<<<<< HEAD
     }
 
     @PutMapping
@@ -65,10 +70,34 @@ public class UserController {
     @GetMapping("/{id}/friends/common/{otherId}")
     public ResponseEntity<List<User>> getCommonFriends(@PathVariable int id, @PathVariable int otherId) {
         return ResponseEntity.ok(userService.getCommonFriends(id, otherId));
+=======
+>>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
     }
 
     @PutMapping
     public ResponseEntity<User> updateUser(@Valid @RequestBody User user) {
         return ResponseEntity.ok(userService.updateUser(user));
+    }
+
+    @PutMapping("/{id}/friends/{friendId}")
+    public ResponseEntity<Void> addFriend(@PathVariable int id, @PathVariable int friendId) {
+        userService.addFriend(id, friendId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}/friends/{friendId}")
+    public ResponseEntity<Void> removeFriend(@PathVariable int id, @PathVariable int friendId) {
+        userService.removeFriend(id, friendId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/friends")
+    public ResponseEntity<List<User>> getFriends(@PathVariable int id) {
+        return ResponseEntity.ok(userService.getFriends(id));
+    }
+
+    @GetMapping("/{id}/friends/common/{otherId}")
+    public ResponseEntity<List<User>> getCommonFriends(@PathVariable int id, @PathVariable int otherId) {
+        return ResponseEntity.ok(userService.getCommonFriends(id, otherId));
     }
 }

@@ -19,6 +19,7 @@ public class UserService {
         this.userStorage = userStorage;
     }
 
+<<<<<<< HEAD
     public User addUser(User user) {
         return userStorage.addUser(user);
     }
@@ -34,12 +35,25 @@ public class UserService {
         return userStorage.getAllUsers();
     }
 
+=======
+    // Получение всех пользователей
+    public List<User> getAllUsers() {
+        return userStorage.getAllUsers();
+    }
+
+    // Создание пользователя
+    public User createUser(User user) {
+        return userStorage.addUser(user);
+    }
+
+>>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
     public User getUserById(int id) {
         return userStorage.getUserById(id)
                 .orElseThrow(() -> new NotFoundException("User with ID " + id + " not found"));
     }
 
     public void addFriend(int userId, int friendId) {
+<<<<<<< HEAD
         User user = userStorage.getUserById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
         User friend = userStorage.getUserById(friendId)
@@ -54,11 +68,21 @@ public class UserService {
             friend.getFriends().put(userId, FriendshipStatus.CONFIRMED);
         }
 
+=======
+        if (userId == friendId) {
+            throw new IllegalArgumentException("Нельзя добавить самого себя в друзья");
+        }
+        User user = getUserById(userId);
+        User friend = getUserById(friendId);
+        user.getFriends().add(friendId);
+        friend.getFriends().add(userId);
+>>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
         userStorage.updateUser(user);
         userStorage.updateUser(friend);
     }
 
     public void removeFriend(int userId, int friendId) {
+<<<<<<< HEAD
         User user = userStorage.getUserById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
         User friend = userStorage.getUserById(friendId)
@@ -67,12 +91,19 @@ public class UserService {
         user.getFriends().remove(friendId);
         friend.getFriends().remove(userId);
 
+=======
+        User user = getUserById(userId);
+        User friend = getUserById(friendId);
+        user.getFriends().remove(friendId);
+        friend.getFriends().remove(userId);
+>>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
         userStorage.updateUser(user);
         userStorage.updateUser(friend);
     }
 
     public List<User> getFriends(int userId) {
         User user = getUserById(userId);
+<<<<<<< HEAD
         return user.getFriends().entrySet().stream()
                 .filter(e -> e.getValue() == FriendshipStatus.CONFIRMED)
                 .map(e -> userStorage.getUserById(e.getKey())
@@ -86,17 +117,26 @@ public class UserService {
 
         return friends1.stream()
                 .filter(friends2::contains)
+=======
+        return user.getFriends().stream()
+                .map(this::getUserById)
                 .collect(Collectors.toList());
     }
 
-    // Обновление пользователя
+    public List<User> getCommonFriends(int userId, int otherUserId) {
+        User user = getUserById(userId);
+        User otherUser = getUserById(otherUserId);
+        return user.getFriends().stream()
+                .filter(otherUser.getFriends()::contains)
+                .map(this::getUserById)
+>>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
+                .collect(Collectors.toList());
+    }
+
     public User updateUser(User user) {
-        // Проверяем, существует ли пользователь
         if (user.getId() == 0 || userStorage.getUserById(user.getId()).isEmpty()) {
             throw new UserNotFoundException("User with ID " + user.getId() + " not found");
         }
-        // Обновляем данные
         return userStorage.updateUser(user);
     }
-
 }
