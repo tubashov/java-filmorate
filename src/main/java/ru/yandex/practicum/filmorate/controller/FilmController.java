@@ -26,11 +26,24 @@ public class FilmController {
         return new ResponseEntity<>(createdFilm, HttpStatus.CREATED);
     }
 
+    // Обновление фильма
+    @PutMapping
+    public ResponseEntity<Film> updateFilm(@RequestBody @Valid Film film) {
+        Film updatedFilm = filmService.updateFilm(film);
+        return ResponseEntity.ok(updatedFilm);
+    }
+
     // Получение фильма по ID
     @GetMapping("/{id}")
     public ResponseEntity<Film> getFilmById(@PathVariable int id) {
         Film film = filmService.getFilmById(id);
         return new ResponseEntity<>(film, HttpStatus.OK);
+    }
+
+    // Получение всех фильмов
+    @GetMapping
+    public ResponseEntity<List<Film>> getAllFilms() {
+        return ResponseEntity.ok(filmService.getAllFilms());
     }
 
     // Поставить лайк фильму
