@@ -25,7 +25,7 @@ public class UserController {
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
         }
-        return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
     }
 
     @GetMapping
