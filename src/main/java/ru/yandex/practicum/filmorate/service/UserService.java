@@ -66,6 +66,10 @@ public class UserService {
         User user = getUserById(userId);
         User friend = getUserById(friendId);
 
+        if (!user.getFriends().contains(friendId)) {
+            throw new UserNotFoundException("Friend with ID " + friendId + " is not in user's friends list");
+        }
+
         user.getFriends().remove(friendId);
         friend.getFriends().remove(userId);
 
