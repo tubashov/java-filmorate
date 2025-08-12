@@ -25,13 +25,26 @@ public class FilmService {
         this.userStorage = userStorage;
     }
 
-    // Добавление фильма с пустым множеством лайков
     public Film addFilm(Film film) {
         film.setLikes(new HashSet<>());
         return filmStorage.addFilm(film);
     }
 
-    // Добавление лайка от пользователя к фильму, только один лайк на пользователя
+    public Film updateFilm(Film film) {
+        filmStorage.getFilmById(film.getId())
+                .orElseThrow(() -> new FilmNotFoundException("Film with ID " + film.getId() + " not found"));
+        return filmStorage.updateFilm(film);
+    }
+
+    public Film getFilmById(int id) {
+        return filmStorage.getFilmById(id)
+                .orElseThrow(() -> new FilmNotFoundException("Film with ID " + id + " not found"));
+    }
+
+    public List<Film> getAllFilms() {
+        return filmStorage.getAllFilms();
+    }
+
     public void addLike(int filmId, int userId) {
         Film film = filmStorage.getFilmById(filmId)
                 .orElseThrow(() -> new FilmNotFoundException("Film with ID " + filmId + " not found"));
@@ -39,32 +52,25 @@ public class FilmService {
         User user = userStorage.getUserById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " not found"));
 
-        // Добавляем лайк
         film.getLikes().add(userId);
         filmStorage.updateFilm(film);
     }
 
-    // Удаление лайка пользователя с фильма
     public void removeLike(int filmId, int userId) {
         Film film = filmStorage.getFilmById(filmId)
                 .orElseThrow(() -> new FilmNotFoundException("Film with ID " + filmId + " not found"));
 
-        // Удаляем лайк
+        userStorage.getUserById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " not found"));
+
         film.getLikes().remove(userId);
         filmStorage.updateFilm(film);
     }
 
-    // Получение топ-10 фильмов по количеству лайков (от большего к меньшему)
     public List<Film> getTop10PopularFilms() {
         return filmStorage.getAllFilms().stream()
                 .sorted((f1, f2) -> Integer.compare(f2.getLikes().size(), f1.getLikes().size()))
                 .limit(10)
                 .collect(Collectors.toList());
-    }
-
-    // Метод для получения фильма по ID
-    public Film getFilmById(int id) {
-        return filmStorage.getFilmById(id)
-                .orElseThrow(() -> new FilmNotFoundException("Film with ID " + id + " not found"));
     }
 }
