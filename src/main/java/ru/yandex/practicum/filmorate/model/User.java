@@ -4,6 +4,8 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class User {
@@ -21,4 +23,9 @@ public class User {
 
     @Past(message = "Дата рождения должна быть в прошлом")
     private LocalDate birthday;
+
+    // Множество id друзей — для хранения списка друзей пользователя
+    private Set<Integer> friends = new HashSet<>();
+
+    // Ломбок @Data сгенерирует геттеры и сеттеры, но при необходимости можно добавить свои
 }
