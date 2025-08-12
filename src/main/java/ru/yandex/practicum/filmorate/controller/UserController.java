@@ -64,4 +64,9 @@ public class UserController {
         List<User> commonFriends = userService.getCommonFriends(id, otherId);
         return new ResponseEntity<>(commonFriends, HttpStatus.OK);
     }
+
+    @PutMapping
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(user));
+    }
 }

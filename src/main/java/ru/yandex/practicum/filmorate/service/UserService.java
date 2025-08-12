@@ -72,4 +72,15 @@ public class UserService {
                 .map(this::getUserById)  // Преобразуем ID в объекты User
                 .collect(Collectors.toList());  // Собираем в список объектов User
     }
+
+    // Обновление пользователя
+    public User updateUser(User user) {
+        // Проверяем, существует ли пользователь
+        if (user.getId() == 0 || userStorage.getUserById(user.getId()).isEmpty()) {
+            throw new UserNotFoundException("User with ID " + user.getId() + " not found");
+        }
+        // Обновляем данные
+        return userStorage.updateUser(user);
+    }
+
 }
