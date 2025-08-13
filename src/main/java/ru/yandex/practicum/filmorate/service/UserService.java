@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -23,7 +24,7 @@ public class UserService {
 
     public User updateUser(User user) {
         if (userStorage.getUserById(user.getId()).isEmpty()) {
-            throw new UserNotFoundException("User with ID " + user.getId() + " not found");
+            throw new NotFoundException("User with ID " + user.getId() + " not found");
         }
         return userStorage.updateUser(user);
     }
@@ -34,14 +35,14 @@ public class UserService {
 
     public User getUserById(int id) {
         return userStorage.getUserById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("User with ID " + id + " not found"));
     }
 
     public void addFriend(int userId, int friendId) {
         User user = userStorage.getUserById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User with id=" + userId + " not found"));
+                .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
         User friend = userStorage.getUserById(friendId)
-                .orElseThrow(() -> new UserNotFoundException("User with id=" + friendId + " not found"));
+                .orElseThrow(() -> new NotFoundException("User with id=" + friendId + " not found"));
 
         user.getFriends().add(friendId);
         friend.getFriends().add(userId);
@@ -52,9 +53,9 @@ public class UserService {
 
     public void removeFriend(int userId, int friendId) {
         User user = userStorage.getUserById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User with id=" + userId + " not found"));
+                .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
         User friend = userStorage.getUserById(friendId)
-                .orElseThrow(() -> new UserNotFoundException("User with id=" + friendId + " not found"));
+                .orElseThrow(() -> new NotFoundException("User with id=" + friendId + " not found"));
 
         user.getFriends().remove(friendId);
         friend.getFriends().remove(userId);
