@@ -2,7 +2,10 @@ package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
+<<<<<<< HEAD
 import ru.yandex.practicum.filmorate.model.FriendshipStatus;
+=======
+>>>>>>> 2cca4d8 (Исправление ошибок.)
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -29,6 +32,7 @@ public class UserService {
     public User updateUser(User user) {
         if (userStorage.getUserById(user.getId()).isEmpty()) {
             throw new NotFoundException("User with ID " + user.getId() + " not found");
+<<<<<<< HEAD
 =======
     // Создание пользователя
     public User createUser(User user) {
@@ -44,6 +48,8 @@ public class UserService {
     public User updateUser(User user) {
         if (userStorage.getUserById(user.getId()).isEmpty()) {
             throw new UserNotFoundException("User with ID " + user.getId() + " not found");
+=======
+>>>>>>> 2cca4d8 (Исправление ошибок.)
         }
 <<<<<<< HEAD
         if (user.getName() == null || user.getName().isBlank()) {
@@ -71,7 +77,7 @@ public class UserService {
 >>>>>>> 4c4e1a9 (Исправление метода removeFriend.)
     public User getUserById(int id) {
         return userStorage.getUserById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("User with ID " + id + " not found"));
     }
 
 <<<<<<< HEAD
@@ -130,10 +136,14 @@ public class UserService {
         User friend = friendOpt.get();
 =======
         User user = userStorage.getUserById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User with id=" + userId + " not found"));
+                .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
         User friend = userStorage.getUserById(friendId)
+<<<<<<< HEAD
                 .orElseThrow(() -> new UserNotFoundException("User with id=" + friendId + " not found"));
 >>>>>>> 13655cc (Исправление ошибок.)
+=======
+                .orElseThrow(() -> new NotFoundException("User with id=" + friendId + " not found"));
+>>>>>>> 2cca4d8 (Исправление ошибок.)
 
         user.getFriends().add(friendId);
         friend.getFriends().add(userId);
