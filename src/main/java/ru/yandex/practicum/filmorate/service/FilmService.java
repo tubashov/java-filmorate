@@ -2,10 +2,8 @@ package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
-import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -25,52 +23,59 @@ public class FilmService {
         this.userStorage = userStorage;
     }
 
+    // Добавление фильма, инициализация лайков
     public Film addFilm(Film film) {
         film.setLikes(new HashSet<>());
         return filmStorage.addFilm(film);
     }
 
+    // Обновление фильма с проверкой существования
     public Film updateFilm(Film film) {
         filmStorage.getFilmById(film.getId())
-                .orElseThrow(() -> new FilmNotFoundException("Film with ID " + film.getId() + " not found"));
+                .orElseThrow(() -> new NotFoundException("Film with ID " + film.getId() + " not found"));
         return filmStorage.updateFilm(film);
     }
 
+    // Получение фильма по ID
     public Film getFilmById(int id) {
         return filmStorage.getFilmById(id)
-                .orElseThrow(() -> new FilmNotFoundException("Film with ID " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Film with ID " + id + " not found"));
     }
 
+    // Получение всех фильмов
     public List<Film> getAllFilms() {
         return filmStorage.getAllFilms();
     }
 
+    // Добавление лайка фильму от пользователя
     public void addLike(int filmId, int userId) {
         Film film = filmStorage.getFilmById(filmId)
-                .orElseThrow(() -> new FilmNotFoundException("Film with ID " + filmId + " not found"));
+                .orElseThrow(() -> new NotFoundException("Film with ID " + filmId + " not found"));
 
-        User user = userStorage.getUserById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " not found"));
+        userStorage.getUserById(userId)
+                .orElseThrow(() -> new NotFoundException("User with ID " + userId + " not found"));
 
         film.getLikes().add(userId);
         filmStorage.updateFilm(film);
     }
 
+    // Удаление лайка с фильма
     public void removeLike(int filmId, int userId) {
         Film film = filmStorage.getFilmById(filmId)
-                .orElseThrow(() -> new FilmNotFoundException("Film with ID " + filmId + " not found"));
+                .orElseThrow(() -> new NotFoundException("Film with ID " + filmId + " not found"));
 
         userStorage.getUserById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User with ID " + userId + " not found"));
+                .orElseThrow(() -> new NotFoundException("User with ID " + userId + " not found"));
 
         film.getLikes().remove(userId);
         filmStorage.updateFilm(film);
     }
 
-    public List<Film> getTop10PopularFilms() {
+    // Получение топ популярных фильмов по количеству лайков
+    public List<Film> getTopPopularFilms(int count) {
         return filmStorage.getAllFilms().stream()
                 .sorted((f1, f2) -> Integer.compare(f2.getLikes().size(), f1.getLikes().size()))
-                .limit(10)
+                .limit(count)
                 .collect(Collectors.toList());
     }
 }
