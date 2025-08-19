@@ -4,12 +4,16 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 =======
 >>>>>>> 2cca4d8 (Исправление ошибок.)
 =======
 import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 >>>>>>> 21930b7 (Исправление ошибок.)
+=======
+import ru.yandex.practicum.filmorate.model.FriendshipStatus;
+>>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -120,6 +124,7 @@ public class UserService {
             friend.getFriends().put(userId, FriendshipStatus.CONFIRMED);
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
         if (userId == friendId) {
@@ -157,6 +162,8 @@ public class UserService {
 =======
 =======
 >>>>>>> 21930b7 (Исправление ошибок.)
+=======
+>>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
 
 >>>>>>> f73da8e (Исправление ошибок в методах.)
         userStorage.updateUser(user);
@@ -205,13 +212,19 @@ public class UserService {
         User user = getUserById(userId);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 21930b7 (Исправление ошибок.)
+=======
+>>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
         return user.getFriends().entrySet().stream()
                 .filter(e -> e.getValue() == FriendshipStatus.CONFIRMED)
                 .map(e -> userStorage.getUserById(e.getKey())
                         .orElseThrow(() -> new NotFoundException("Friend with ID " + e.getKey() + " not found")))
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
                 .collect(Collectors.toList());
     }
 
