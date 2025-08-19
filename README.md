@@ -7,6 +7,7 @@ Template repository for Filmorate project.
 ![Схема БД](docs/schema.png)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Полный файл диаграммы в формате dbml: [filmorate.dbml](docs/filmorate.dbml)
 
 ### Пояснения
@@ -124,6 +125,9 @@ WHERE fs1.user_id = 1
 ```
 =======
 Полный файл диаграммы в формате dbml: [schema.dbml](docs/schema.dbml)
+=======
+Полный файл диаграммы в формате dbml: [filmorate-db.dbml](docs/schema.dbml)
+>>>>>>> 233fa4a (Изменение README.md.)
 
 ### Пояснения
 - Таблица `app_users` хранит информацию о пользователях.
