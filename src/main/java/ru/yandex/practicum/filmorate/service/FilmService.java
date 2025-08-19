@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.MpaRating;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -25,7 +26,15 @@ public class FilmService {
 
     // Добавление фильма, инициализация лайков
     public Film addFilm(Film film) {
-        film.setLikes(new HashSet<>());
+        if (film.getLikes() == null) {
+            film.setLikes(new HashSet<>());
+        }
+        if (film.getGenres() == null) {
+            film.setGenres(new HashSet<>());
+        }
+        if (film.getMpa() == null) {
+            film.setMpa(MpaRating.NR); // "Not Rated" — дефолтный рейтинг, если не указан
+        }
         return filmStorage.addFilm(film);
     }
 
