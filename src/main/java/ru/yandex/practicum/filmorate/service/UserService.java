@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.service;
 
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
+import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -44,8 +45,14 @@ public class UserService {
         User friend = userStorage.getUserById(friendId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + friendId + " not found"));
 
-        user.getFriends().add(friendId);
-        friend.getFriends().add(userId);
+        // Помечаем как PENDING для отправителя
+        user.getFriends().put(friendId, FriendshipStatus.PENDING);
+
+        // Если получатель уже отправлял запрос, то обе стороны становятся CONFIRMED
+        if (friend.getFriends().get(friendId) == FriendshipStatus.PENDING) {
+            user.getFriends().put(friendId, FriendshipStatus.CONFIRMED);
+            friend.getFriends().put(userId, FriendshipStatus.CONFIRMED);
+        }
 
         userStorage.updateUser(user);
         userStorage.updateUser(friend);
@@ -66,10 +73,10 @@ public class UserService {
 
     public List<User> getFriends(int userId) {
         User user = getUserById(userId);
-        return user.getFriends().stream()
-                .map(id -> userStorage.getUserById(id))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+        return user.getFriends().entrySet().stream()
+                .filter(e -> e.getValue() == FriendshipStatus.CONFIRMED)
+                .map(e -> userStorage.getUserById(e.getKey())
+                        .orElseThrow(() -> new NotFoundException("Friend with ID " + e.getKey() + " not found")))
                 .collect(Collectors.toList());
     }
 
