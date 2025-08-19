@@ -6,6 +6,7 @@ import ru.yandex.practicum.filmorate.validation.ReleaseDateConstraint;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -28,11 +29,19 @@ public class Film {
     // Множество id пользователей, которые поставили лайк этому фильму
     private Set<Integer> likes = new HashSet<>();
 
+<<<<<<< HEAD
     // Жанры фильма (может быть несколько)
     private Set<String> genres = new HashSet<>();
 
     // Возрастной рейтинг MPA (одно значение)
     private MpaRating mpa = MpaRating.NR;
+=======
+    // 🎬 Новый атрибут — жанры фильма (может быть несколько)
+    private List<Genre> genres;
+
+    // 🔞 Новый атрибут — возрастной рейтинг MPA (одно значение)
+    private MpaRating mpa;
+>>>>>>> 9bcac66 (Добавление жанра и возрастного ограничения.)
 
     // Ломбок @Data сгенерирует геттеры и сеттеры автоматически
 }
