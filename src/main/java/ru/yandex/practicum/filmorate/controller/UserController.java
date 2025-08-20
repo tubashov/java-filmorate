@@ -27,6 +27,7 @@ public class UserController {
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
 =======
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
@@ -34,6 +35,9 @@ public class UserController {
 =======
         return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
 >>>>>>> 4c4e1a9 (Исправление метода removeFriend.)
+=======
+        return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
     }
 
     @GetMapping
@@ -44,6 +48,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
         return ResponseEntity.ok(userService.getUserById(id));
+<<<<<<< HEAD
 <<<<<<< HEAD
     }
 
@@ -76,6 +81,8 @@ public class UserController {
         return ResponseEntity.ok(userService.getCommonFriends(id, otherId));
 =======
 >>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
     }
 
     @PutMapping

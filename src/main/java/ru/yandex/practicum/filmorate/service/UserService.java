@@ -5,6 +5,7 @@ import ru.yandex.practicum.filmorate.exception.NotFoundException;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 =======
 >>>>>>> 2cca4d8 (Исправление ошибок.)
@@ -14,6 +15,9 @@ import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 =======
 import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 >>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
+=======
+import ru.yandex.practicum.filmorate.model.FriendshipStatus;
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -33,6 +37,9 @@ public class UserService {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
     public User addUser(User user) {
         return userStorage.addUser(user);
     }
@@ -40,6 +47,7 @@ public class UserService {
     public User updateUser(User user) {
         if (userStorage.getUserById(user.getId()).isEmpty()) {
             throw new NotFoundException("User with ID " + user.getId() + " not found");
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     // Создание пользователя
@@ -63,20 +71,26 @@ public class UserService {
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
 >>>>>>> f73da8e (Исправление ошибок в методах.)
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         }
         return userStorage.updateUser(user);
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
         return userStorage.updateUser(user);
     }
 
 >>>>>>> 4c4e1a9 (Исправление метода removeFriend.)
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
     public List<User> getAllUsers() {
         return userStorage.getAllUsers();
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -102,6 +116,8 @@ public class UserService {
     }
 
 >>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
     public User getUserById(int id) {
         return userStorage.getUserById(id)
                 .orElseThrow(() -> new NotFoundException("User with ID " + id + " not found"));
@@ -110,6 +126,9 @@ public class UserService {
     public void addFriend(int userId, int friendId) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         User user = userStorage.getUserById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
         User friend = userStorage.getUserById(friendId)
@@ -123,6 +142,7 @@ public class UserService {
             user.getFriends().put(friendId, FriendshipStatus.CONFIRMED);
             friend.getFriends().put(userId, FriendshipStatus.CONFIRMED);
         }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -166,6 +186,9 @@ public class UserService {
 >>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
 
 >>>>>>> f73da8e (Исправление ошибок в методах.)
+=======
+
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         userStorage.updateUser(user);
         userStorage.updateUser(friend);
     }
@@ -173,6 +196,9 @@ public class UserService {
     public void removeFriend(int userId, int friendId) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         User user = userStorage.getUserById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
         User friend = userStorage.getUserById(friendId)
@@ -181,6 +207,7 @@ public class UserService {
         user.getFriends().remove(friendId);
         friend.getFriends().remove(userId);
 
+<<<<<<< HEAD
 =======
         User user = getUserById(userId);
 
@@ -204,6 +231,8 @@ public class UserService {
 =======
 
 >>>>>>> f73da8e (Исправление ошибок в методах.)
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         userStorage.updateUser(user);
         userStorage.updateUser(friend);
     }
@@ -213,18 +242,24 @@ public class UserService {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 21930b7 (Исправление ошибок.)
 =======
 >>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         return user.getFriends().entrySet().stream()
                 .filter(e -> e.getValue() == FriendshipStatus.CONFIRMED)
                 .map(e -> userStorage.getUserById(e.getKey())
                         .orElseThrow(() -> new NotFoundException("Friend with ID " + e.getKey() + " not found")))
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
                 .collect(Collectors.toList());
     }
 
@@ -234,6 +269,7 @@ public class UserService {
 
         return friends1.stream()
                 .filter(friends2::contains)
+<<<<<<< HEAD
 =======
         return user.getFriends().stream()
                 .map(id -> userStorage.getUserById(id))
@@ -257,6 +293,8 @@ public class UserService {
         return friends1.stream()
                 .filter(friends2::contains)
 >>>>>>> 4c4e1a9 (Исправление метода removeFriend.)
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
                 .collect(Collectors.toList());
     }
 }

@@ -17,6 +17,7 @@ public class FilmorateApplication {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 	
@@ -39,4 +40,7 @@ public class FilmorateApplication {
 =======
 
 >>>>>>> c3cb3bf (Исправление ошибок.)
+=======
+
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 }

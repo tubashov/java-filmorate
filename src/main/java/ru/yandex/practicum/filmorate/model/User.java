@@ -27,6 +27,7 @@ public class User {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Map с ID других пользователей и статусом дружбы
     private Map<Integer, FriendshipStatus> friends = new HashMap<>();
 =======
@@ -41,4 +42,8 @@ public class User {
     // Map с ID других пользователей и статусом дружбы
     private Map<Integer, FriendshipStatus> friends = new HashMap<>();
 >>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
+=======
+    // Map с ID других пользователей и статусом дружбы
+    private Map<Integer, FriendshipStatus> friends = new HashMap<>();
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 }

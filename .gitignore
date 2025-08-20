@@ -1,9 +1,13 @@
 # Компиляционные артефакты
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 .github/workflows/api-tests.yml
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+.github/workflows/api-tests.yml
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 checkstyle.xml
 *.class
 *.jar
@@ -61,6 +65,7 @@ db/*
 # Windows системные
 Thumbs.db
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 # Maven Wrapper (не добавляем в PR)
 .mvn/
@@ -73,3 +78,8 @@ mvnw.cmd
 =======
 .idea/
 >>>>>>> 0ce43fc (Ignore .idea/ directory to prevent CI errors)
+=======
+.idea/
+.idea/
+.idea/
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
