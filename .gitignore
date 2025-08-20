@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 .github/workflows/api-tests.yml
 <<<<<<< HEAD
+<<<<<<< HEAD
 checkstyle.xml
 *.class
 *.jar
@@ -16,6 +17,12 @@ checkstyle.xml
 *.DS_Store
 checkstyle.xml
 >>>>>>> c277ec0 (Удалены запрещённые файлы из PR)
+=======
+checkstyle.xml
+*.class
+*.jar
+*.DS_Store
+>>>>>>> 100ff0d (Сохраняем текущие изменения перед очисткой ветки)
 **/*.class
 **/*.jar
 >>>>>>> 924e392 (Удалил папку .idea из репозитория и добавил в .gitignore)
