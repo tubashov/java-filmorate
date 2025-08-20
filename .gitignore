@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 .github/workflows/api-tests.yml
+<<<<<<< HEAD
 checkstyle.xml
 *.class
 *.jar
@@ -9,6 +10,12 @@ checkstyle.xml
 =======
 .github/workflows/api-tests.yml
 >>>>>>> d8ad679 (Исправление .gitignore.)
+=======
+*.class
+*.jar
+*.DS_Store
+checkstyle.xml
+>>>>>>> c277ec0 (Удалены запрещённые файлы из PR)
 **/*.class
 **/*.jar
 >>>>>>> 924e392 (Удалил папку .idea из репозитория и добавил в .gitignore)
