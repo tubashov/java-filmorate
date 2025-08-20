@@ -10,8 +10,12 @@ public class FilmorateApplication {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 	
 >>>>>>> 5f6950c (Исправление .gitignore.)
+=======
+
+>>>>>>> e2b1066 (Исправление .gitignore.)
 }
