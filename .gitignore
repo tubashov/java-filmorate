@@ -1,5 +1,9 @@
 # Компиляционные артефакты
 .github/workflows/api-tests.yml
+*.class
+*.jar
+*.DS_Store
+checkstyle.xml
 **/*.class
 **/*.jar
 *.war
