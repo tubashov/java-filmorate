@@ -13,6 +13,7 @@ public class FilmorateApplication {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 	
@@ -25,4 +26,6 @@ public class FilmorateApplication {
 =======
 	
 >>>>>>> 18ca915 (Исправление ошибок.)
+=======
+>>>>>>> 053da95 (Исправление ошибок.)
 }
