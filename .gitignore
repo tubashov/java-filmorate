@@ -1,4 +1,5 @@
 # Компиляционные артефакты
+.github/workflows/api-tests.yml
 **/*.class
 **/*.jar
 *.war
