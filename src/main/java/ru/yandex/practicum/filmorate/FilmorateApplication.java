@@ -9,5 +9,9 @@ public class FilmorateApplication {
 		SpringApplication.run(FilmorateApplication.class, args);
 	}
 
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 5f6950c (Исправление .gitignore.)
 }
