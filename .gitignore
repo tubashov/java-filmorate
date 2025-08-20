@@ -60,8 +60,12 @@ db/*
 
 # Windows системные
 Thumbs.db
+<<<<<<< HEAD
 
 # Maven Wrapper (не добавляем в PR)
 .mvn/
 mvnw
 mvnw.cmd
+=======
+.idea/
+>>>>>>> 8982499 (Добавлен .gitignore для игнорирования IDE файлов)
