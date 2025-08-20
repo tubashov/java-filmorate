@@ -3,9 +3,13 @@ package ru.yandex.practicum.filmorate.service;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 =======
 >>>>>>> 2cca4d8 (Исправление ошибок.)
+=======
+import ru.yandex.practicum.filmorate.model.FriendshipStatus;
+>>>>>>> 21930b7 (Исправление ошибок.)
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -115,6 +119,7 @@ public class UserService {
             user.getFriends().put(friendId, FriendshipStatus.CONFIRMED);
             friend.getFriends().put(userId, FriendshipStatus.CONFIRMED);
         }
+<<<<<<< HEAD
 
 =======
         if (userId == friendId) {
@@ -150,6 +155,8 @@ public class UserService {
 <<<<<<< HEAD
 >>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
 =======
+=======
+>>>>>>> 21930b7 (Исправление ошибок.)
 
 >>>>>>> f73da8e (Исправление ошибок в методах.)
         userStorage.updateUser(user);
@@ -197,10 +204,14 @@ public class UserService {
     public List<User> getFriends(int userId) {
         User user = getUserById(userId);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 21930b7 (Исправление ошибок.)
         return user.getFriends().entrySet().stream()
                 .filter(e -> e.getValue() == FriendshipStatus.CONFIRMED)
                 .map(e -> userStorage.getUserById(e.getKey())
                         .orElseThrow(() -> new NotFoundException("Friend with ID " + e.getKey() + " not found")))
+<<<<<<< HEAD
                 .collect(Collectors.toList());
     }
 
@@ -215,6 +226,8 @@ public class UserService {
                 .map(id -> userStorage.getUserById(id))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
+=======
+>>>>>>> 21930b7 (Исправление ошибок.)
                 .collect(Collectors.toList());
     }
 
