@@ -21,11 +21,14 @@ checkstyle.xml
 checkstyle.xml
 *.class
 *.jar
+<<<<<<< HEAD
 *.DS_Store
 >>>>>>> 100ff0d (Сохраняем текущие изменения перед очисткой ветки)
 **/*.class
 **/*.jar
 >>>>>>> 924e392 (Удалил папку .idea из репозитория и добавил в .gitignore)
+=======
+>>>>>>> 976e23f (Исправление ошибок.)
 *.war
 *.nar
 *.ear
@@ -41,13 +44,6 @@ target/
 *.iws
 *.iml
 *.ipr
-
-# Исключаем конкретные файлы настроек, которые не надо коммитить
-.idea/compiler.xml
-.idea/encodings.xml
-.idea/jarRepositories.xml
-.idea/misc.xml
-.idea/vcs.xml
 
 # macOS
 *.DS_Store
