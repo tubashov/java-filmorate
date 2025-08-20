@@ -3,9 +3,6 @@
 checkstyle.xml
 *.class
 *.jar
-*.DS_Store
-**/*.class
-**/*.jar
 *.war
 *.nar
 *.ear
@@ -22,19 +19,11 @@ target/
 *.iml
 *.ipr
 
-# Исключаем конкретные файлы настроек, которые не надо коммитить
-.idea/compiler.xml
-.idea/encodings.xml
-.idea/jarRepositories.xml
-.idea/misc.xml
-.idea/vcs.xml
-
 # macOS
-.DS_Store
+*.DS_Store
 
 # Логи
 *.log
-.idea/*.log
 
 # Базы данных
 *.db
