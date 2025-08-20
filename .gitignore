@@ -1,6 +1,6 @@
 # Компиляционные артефакты
-*.class
-*.jar
+**/*.class
+**/*.jar
 *.war
 *.nar
 *.ear
@@ -11,11 +11,18 @@ hs_err_pid*
 out/
 target/
 
-# IDE
+# IntelliJ IDEA
 .idea/
 *.iws
 *.iml
 *.ipr
+
+# Исключаем конкретные файлы настроек, которые не надо коммитить
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/vcs.xml
 
 # macOS
 .DS_Store
@@ -30,9 +37,6 @@ db/*
 
 # VSCode
 .vscode/
-
-# Maven wrapper
-.mvn/wrapper/maven-wrapper.properties
 
 # Windows системные
 Thumbs.db
