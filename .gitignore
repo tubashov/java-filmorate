@@ -1,4 +1,6 @@
 # Компиляционные артефакты
+.github/workflows/api-tests.yml
+checkstyle.xml
 *.class
 *.jar
 *.war
@@ -11,18 +13,17 @@ hs_err_pid*
 out/
 target/
 
-# IDE
+# IntelliJ IDEA
 .idea/
 *.iws
 *.iml
 *.ipr
 
 # macOS
-.DS_Store
+*.DS_Store
 
 # Логи
 *.log
-.idea/*.log
 
 # Базы данных
 *.db
@@ -31,8 +32,8 @@ db/*
 # VSCode
 .vscode/
 
-# Maven wrapper
-.mvn/wrapper/maven-wrapper.properties
-
 # Windows системные
 Thumbs.db
+.idea/
+.idea/
+.idea/
