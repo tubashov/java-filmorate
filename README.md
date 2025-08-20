@@ -58,6 +58,7 @@ WHERE fs1.user_id = 1
   AND fs2.user_id = 2
   AND fs1.status = 'CONFIRMED'
   AND fs2.status = 'CONFIRMED';
+<<<<<<< HEAD
 ```
 
 # Filmorate
@@ -117,4 +118,6 @@ WHERE fs1.user_id = 1
   AND fs2.user_id = 2
   AND fs1.status = 'CONFIRMED'
   AND fs2.status = 'CONFIRMED';
+=======
+>>>>>>> 21930b7 (Исправление ошибок.)
 ```

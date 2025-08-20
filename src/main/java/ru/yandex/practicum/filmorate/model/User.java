@@ -25,10 +25,15 @@ public class User {
     private LocalDate birthday;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Map с ID других пользователей и статусом дружбы
     private Map<Integer, FriendshipStatus> friends = new HashMap<>();
 =======
     // Множество id друзей
     private Set<Integer> friends = new HashSet<>();
 >>>>>>> f73da8e (Исправление ошибок в методах.)
+=======
+    // Map с ID других пользователей и статусом дружбы
+    private Map<Integer, FriendshipStatus> friends = new HashMap<>();
+>>>>>>> 21930b7 (Исправление ошибок.)
 }
