@@ -68,4 +68,8 @@ mvnw
 mvnw.cmd
 =======
 .idea/
+<<<<<<< HEAD
 >>>>>>> 8982499 (Добавлен .gitignore для игнорирования IDE файлов)
+=======
+.idea/
+>>>>>>> 0ce43fc (Ignore .idea/ directory to prevent CI errors)
