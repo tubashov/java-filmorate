@@ -7,6 +7,7 @@ public enum MpaRating {
     R,       // до 17 — только с родителями
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     NC_17,    // до 18 запрещено
     NR       // Not Rated (дефолтное значение)
 =======
@@ -16,4 +17,8 @@ public enum MpaRating {
     NC_17,    // до 18 запрещено
     NR       // Not Rated (дефолтное значение)
 >>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
+=======
+    NC_17,    // до 18 запрещено
+    NR       // Not Rated (дефолтное значение)
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 }

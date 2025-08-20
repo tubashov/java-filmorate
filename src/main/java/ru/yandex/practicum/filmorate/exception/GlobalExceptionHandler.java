@@ -13,6 +13,7 @@ import jakarta.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
+<<<<<<< HEAD
 @RestControllerAdvice // Глобальный обработчик исключений для всех контроллеров
 public class GlobalExceptionHandler {
 
@@ -25,12 +26,23 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class) // Ошибки валидации @Valid
 >>>>>>> 39cd978 (Добавление логирония в класс GlobalExceptionHandler.)
+=======
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(MethodArgumentNotValidException.class) // Ошибки валидации @Valid (тело запроса)
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error ->
                 errors.put(error.getField(), error.getDefaultMessage()));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         log.warn("Ошибка валидации тела запроса: {}", errors);
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
@@ -49,6 +61,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ValidationException.class) // Кастомная ошибка валидации
+<<<<<<< HEAD
 =======
         log.warn("Ошибка валидации: {}", errors); // Логируем поля с ошибками
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
@@ -56,6 +69,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ValidationException.class) // Кастомное исключение валидации
 >>>>>>> 39cd978 (Добавление логирония в класс GlobalExceptionHandler.)
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
     public ResponseEntity<Map<String, String>> handleValidation(ValidationException ex) {
         log.warn("ValidationException: {}", ex.getMessage());
         return ResponseEntity
@@ -63,6 +78,7 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", ex.getMessage()));
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     @ExceptionHandler(NotFoundException.class) // Универсальная ошибка "не найдено"
     public ResponseEntity<Map<String, String>> handleNotFound(NotFoundException ex) {
@@ -72,11 +88,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleFilmNotFound(FilmNotFoundException ex) {
         log.warn("FilmNotFoundException: {}", ex.getMessage());
 >>>>>>> 39cd978 (Добавление логирония в класс GlobalExceptionHandler.)
+=======
+    @ExceptionHandler(NotFoundException.class) // Универсальная ошибка "не найдено"
+    public ResponseEntity<Map<String, String>> handleNotFound(NotFoundException ex) {
+        log.warn("NotFoundException: {}", ex.getMessage());
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(Map.of("error", ex.getMessage()));
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     @ExceptionHandler(Exception.class) // Любая непредвиденная ошибка
     public ResponseEntity<Map<String, String>> handleGeneralError(Exception ex) {
@@ -94,6 +116,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleGeneralError(Exception ex) {
         log.error("Необработанная ошибка: ", ex); // Логируем полный стектрейс
 >>>>>>> 39cd978 (Добавление логирония в класс GlobalExceptionHandler.)
+=======
+    @ExceptionHandler(Exception.class) // Любая непредвиденная ошибка
+    public ResponseEntity<Map<String, String>> handleGeneralError(Exception ex) {
+        log.error("Необработанная ошибка: ", ex);
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of("error", ex.getMessage()));
     }

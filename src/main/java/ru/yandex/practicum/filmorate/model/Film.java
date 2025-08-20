@@ -30,11 +30,15 @@ public class Film {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
     // Жанры фильма (может быть несколько)
     private Set<String> genres = new HashSet<>();
 
     // Возрастной рейтинг MPA (одно значение)
     private MpaRating mpa = MpaRating.NR;
+<<<<<<< HEAD
 =======
     // 🎬 Новый атрибут — жанры фильма (может быть несколько)
     private List<Genre> genres;
@@ -49,6 +53,8 @@ public class Film {
     // Возрастной рейтинг MPA (одно значение)
     private MpaRating mpa = MpaRating.NR;
 >>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
+=======
+>>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 
     // Ломбок @Data сгенерирует геттеры и сеттеры автоматически
 }
