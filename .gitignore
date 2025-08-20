@@ -34,3 +34,4 @@ db/*
 
 # Windows системные
 Thumbs.db
+.idea/
