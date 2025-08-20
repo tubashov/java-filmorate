@@ -18,6 +18,7 @@ public class FilmorateApplication {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 	
@@ -43,4 +44,6 @@ public class FilmorateApplication {
 =======
 
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+>>>>>>> 6d8d952 (Update FilmorateApplication.java)
 }
