@@ -1,10 +1,14 @@
 # Компиляционные артефакты
 <<<<<<< HEAD
+<<<<<<< HEAD
 .github/workflows/api-tests.yml
 checkstyle.xml
 *.class
 *.jar
 =======
+=======
+.github/workflows/api-tests.yml
+>>>>>>> d8ad679 (Исправление .gitignore.)
 **/*.class
 **/*.jar
 >>>>>>> 924e392 (Удалил папку .idea из репозитория и добавил в .gitignore)
