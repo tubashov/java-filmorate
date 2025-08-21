@@ -34,4 +34,8 @@ db/*
 
 # Windows системные
 Thumbs.db
-.idea/
+
+# Maven Wrapper (не добавляем в PR)
+.mvn/
+mvnw
+mvnw.cmd
