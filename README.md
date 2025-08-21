@@ -64,6 +64,9 @@ WHERE fs1.user_id = 1
   AND fs1.status = 'CONFIRMED'
   AND fs2.status = 'CONFIRMED';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dfb8514 (Исправление ошибок.)
 ```
 
 # Filmorate
@@ -71,16 +74,22 @@ WHERE fs1.user_id = 1
 ## Схема базы данных
 ![Схема БД](docs/schema.png)
 
+<<<<<<< HEAD
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+>>>>>>> dfb8514 (Исправление ошибок.)
 Полный файл диаграммы в формате dbml: [filmorate.dbml](docs/filmorate.dbml)
 
 ### Пояснения
 - Таблица `users` хранит информацию о пользователях.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+>>>>>>> dfb8514 (Исправление ошибок.)
 - Таблица `films` хранит информацию о фильмах и содержит ссылку на рейтинг MPA.
 - Таблица `genres` и промежуточная таблица `film_genres` реализуют связь "многие-ко-многим".
 - Таблица `likes` позволяет учитывать лайки фильмов пользователями.
@@ -129,6 +138,7 @@ WHERE fs1.user_id = 1
   AND fs2.user_id = 2
   AND fs1.status = 'CONFIRMED'
   AND fs2.status = 'CONFIRMED';
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> 21930b7 (Исправление ошибок.)
@@ -205,3 +215,6 @@ WHERE fs1.user_id = 1
 =======
 ```
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+```
+>>>>>>> dfb8514 (Исправление ошибок.)

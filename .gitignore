@@ -66,11 +66,15 @@ db/*
 Thumbs.db
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dfb8514 (Исправление ошибок.)
 
 # Maven Wrapper (не добавляем в PR)
 .mvn/
 mvnw
 mvnw.cmd
+<<<<<<< HEAD
 =======
 .idea/
 <<<<<<< HEAD
@@ -83,3 +87,5 @@ mvnw.cmd
 .idea/
 .idea/
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+>>>>>>> dfb8514 (Исправление ошибок.)
