@@ -1,7 +1,6 @@
 # Компиляционные артефакты
 .github/workflows/api-tests.yml
 checkstyle.xml
-
 *.class
 *.jar
 *.war
