@@ -16,4 +16,5 @@ services:
       # Локальная папка для данных
 
 volumes:
-  postgres_data:                   # Логический том (на будущее)
+  postgres_data:                   # Логический том
+  
