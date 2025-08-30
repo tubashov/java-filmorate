@@ -36,6 +36,9 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 073a54e (Добавление зависимостей com.h2database.h2, org.springframework.boot.spring-boot-starter-jdbc.)
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -47,10 +50,13 @@
             <scope>runtime</scope>
         </dependency>
 
+<<<<<<< HEAD
 =======
 >>>>>>> 3fbdcb1 (Очистка репозитория от файлов, перечисленных в .gitignore)
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+>>>>>>> 073a54e (Добавление зависимостей com.h2database.h2, org.springframework.boot.spring-boot-starter-jdbc.)
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
