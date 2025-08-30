@@ -17,7 +17,12 @@ services:
 
 volumes:
 <<<<<<< HEAD
+<<<<<<< HEAD
   postgres_data:                   # Логический том
 =======
   postgres_data:                   # Логический том (на будущее)
 >>>>>>> f243260 (First commit)
+=======
+  postgres_data:                   # Логический том
+  
+>>>>>>> 27d2e25 (Create compose.yaml)
