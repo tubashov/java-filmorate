@@ -16,4 +16,8 @@ services:
       # Локальная папка для данных
 
 volumes:
+<<<<<<< HEAD
   postgres_data:                   # Логический том
+=======
+  postgres_data:                   # Логический том (на будущее)
+>>>>>>> f243260 (First commit)
