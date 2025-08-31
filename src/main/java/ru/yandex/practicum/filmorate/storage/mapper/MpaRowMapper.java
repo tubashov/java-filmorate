@@ -12,9 +12,7 @@ import java.sql.SQLException;
 public class MpaRowMapper implements RowMapper<MpaRating> {
     @Override
     public MpaRating mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new MpaRating(
-                rs.getInt("id"),
-                rs.getString("name")
-        );
+        int id = rs.getInt("id");
+        return MpaRating.fromId(id); // 👈 используем enum метод
     }
 }

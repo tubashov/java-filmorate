@@ -15,15 +15,16 @@ import java.util.HashSet;
 public class FilmRowMapper implements RowMapper<Film> {
     @Override
     public Film mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new Film(
-                rs.getInt("id"),
-                rs.getString("name"),
-                rs.getString("description"),
-                rs.getDate("release_date").toLocalDate(),
-                rs.getInt("duration"),
-                new HashSet<>(), // лайки подтягиваем отдельным запросом
-                new HashSet<>(), // жанры подтягиваем отдельным запросом
-                new MpaRating(rs.getInt("mpa_id"), null)
-        );
+        Film film = new Film();
+        film.setId(rs.getInt("id"));
+        film.setName(rs.getString("name"));
+        film.setDescription(rs.getString("description"));
+        film.setReleaseDate(rs.getDate("release_date").toLocalDate());
+        film.setDuration(rs.getInt("duration"));
+        film.setLikes(new HashSet<>());
+        film.setGenres(new HashSet<>());
+        film.setMpa(MpaRating.valueOf("mpa_id")); // 👈 конвертируем id в enum
+        return film;
     }
+
 }
