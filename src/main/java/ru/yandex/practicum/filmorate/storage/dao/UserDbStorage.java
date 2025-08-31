@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
-import ru.yandex.practicum.filmorate.storage.mapper.UserMapper;
+import ru.yandex.practicum.filmorate.storage.mapper.UserRowMapper;
 
 import java.util.List;
 import java.util.Map;
@@ -32,6 +32,7 @@ import java.util.Optional;
 public class UserDbStorage implements UserStorage {
 
     private final JdbcTemplate jdbcTemplate;
+<<<<<<< HEAD
 <<<<<<< HEAD
     private final UserRowMapper userMapper = new UserRowMapper();
 
@@ -51,6 +52,9 @@ public class UserDbStorage implements UserStorage {
         user.setId(keyHolder.getKey().intValue());
 =======
     private final UserMapper userMapper = new UserMapper();
+=======
+    private final UserRowMapper userMapper = new UserRowMapper();
+>>>>>>> 806c8cf (Добавление DAO для жанров и рейтига)
 
     @Override
     public User addUser(User user) {
