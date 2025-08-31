@@ -61,7 +61,7 @@ public class FilmService {
         Film film = filmStorage.getFilmById(filmId)
                 .orElseThrow(() -> new NotFoundException("Film with ID " + filmId + " not found"));
 
-        userStorage.getUserById(userId)
+        userStorage.findUserById(userId)
                 .orElseThrow(() -> new NotFoundException("User with ID " + userId + " not found"));
 
         film.getLikes().add(userId);
@@ -73,7 +73,7 @@ public class FilmService {
         Film film = filmStorage.getFilmById(filmId)
                 .orElseThrow(() -> new NotFoundException("Film with ID " + filmId + " not found"));
 
-        userStorage.getUserById(userId)
+        userStorage.findUserById(userId)
                 .orElseThrow(() -> new NotFoundException("User with ID " + userId + " not found"));
 
         film.getLikes().remove(userId);
