@@ -2,7 +2,10 @@ package ru.yandex.practicum.filmorate.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+<<<<<<< HEAD
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
+=======
+>>>>>>> 806c8cf (Добавление DAO для жанров и рейтига)
 import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.storage.dao.GenreDbStorage;
 
@@ -31,6 +34,10 @@ public class GenreController {
     @GetMapping("/{id}")
     public Genre getGenreById(@PathVariable int id) {
         return genreStorage.getGenreById(id)
+<<<<<<< HEAD
                 .orElseThrow(() -> new NotFoundException("Жанр", id));
+=======
+                .orElseThrow(() -> new IllegalArgumentException("Жанр с ID " + id + " не найден"));
+>>>>>>> 806c8cf (Добавление DAO для жанров и рейтига)
     }
 }
