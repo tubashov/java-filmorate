@@ -33,7 +33,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public Optional<User> getUserById(int id) {
+    public Optional<User> findUserById(int id) {
         return Optional.ofNullable(users.get(id));  // Возвращаем Optional
     }
 
