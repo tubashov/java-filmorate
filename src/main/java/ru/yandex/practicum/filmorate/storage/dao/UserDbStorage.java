@@ -95,10 +95,14 @@ public class UserDbStorage implements UserStorage {
 
     @Override
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Optional<User> findUserById(int id) {
 =======
     public Optional<User> getUserById(int id) {
 >>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
+=======
+    public Optional<User> findUserById(int id) {
+>>>>>>> b988486 (Исправление ошибок)
         List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE id=?", userMapper, id);
         if (users.isEmpty()) return Optional.empty();
         User user = users.get(0);

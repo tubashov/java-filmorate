@@ -45,7 +45,7 @@ public class UserService {
     }
 
     public User updateUser(User user) {
-        if (userStorage.getUserById(user.getId()).isEmpty()) {
+        if (userStorage.findUserById(user.getId()).isEmpty()) {
             throw new NotFoundException("User with ID " + user.getId() + " not found");
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -92,6 +92,7 @@ public class UserService {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
     // Получение пользователя по ID
@@ -120,6 +121,10 @@ public class UserService {
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
     public User getUserById(int id) {
         return userStorage.getUserById(id)
+=======
+    public User findUserById(int id) {
+        return userStorage.findUserById(id)
+>>>>>>> b988486 (Исправление ошибок)
                 .orElseThrow(() -> new NotFoundException("User with ID " + id + " not found"));
     }
 
@@ -127,11 +132,15 @@ public class UserService {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         User user = userStorage.getUserById(userId)
+=======
+        User user = userStorage.findUserById(userId)
+>>>>>>> b988486 (Исправление ошибок)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
-        User friend = userStorage.getUserById(friendId)
+        User friend = userStorage.findUserById(friendId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + friendId + " not found"));
 
         // Помечаем как PENDING для отправителя
@@ -197,11 +206,15 @@ public class UserService {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         User user = userStorage.getUserById(userId)
+=======
+        User user = userStorage.findUserById(userId)
+>>>>>>> b988486 (Исправление ошибок)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
-        User friend = userStorage.getUserById(friendId)
+        User friend = userStorage.findUserById(friendId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + friendId + " not found"));
 
         user.getFriends().remove(friendId);
@@ -238,6 +251,7 @@ public class UserService {
     }
 
     public List<User> getFriends(int userId) {
+<<<<<<< HEAD
         User user = getUserById(userId);
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -249,9 +263,12 @@ public class UserService {
 >>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+        User user = findUserById(userId);
+>>>>>>> b988486 (Исправление ошибок)
         return user.getFriends().entrySet().stream()
                 .filter(e -> e.getValue() == FriendshipStatus.CONFIRMED)
-                .map(e -> userStorage.getUserById(e.getKey())
+                .map(e -> userStorage.findUserById(e.getKey())
                         .orElseThrow(() -> new NotFoundException("Friend with ID " + e.getKey() + " not found")))
 <<<<<<< HEAD
 <<<<<<< HEAD

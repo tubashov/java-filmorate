@@ -22,10 +22,15 @@ public class MpaRowMapper implements RowMapper<Mpa> {
 public class MpaRowMapper implements RowMapper<MpaRating> {
     @Override
     public MpaRating mapRow(ResultSet rs, int rowNum) throws SQLException {
+<<<<<<< HEAD
         return new MpaRating(
                 rs.getInt("id"),
                 rs.getString("name")
         );
 >>>>>>> 806c8cf (Добавление DAO для жанров и рейтига)
+=======
+        int id = rs.getInt("id");
+        return MpaRating.fromId(id); // 👈 используем enum метод
+>>>>>>> b988486 (Исправление ошибок)
     }
 }

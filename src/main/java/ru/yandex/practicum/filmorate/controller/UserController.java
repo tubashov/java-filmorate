@@ -47,6 +47,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {
+<<<<<<< HEAD
         return ResponseEntity.ok(userService.getUserById(id));
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -83,6 +84,9 @@ public class UserController {
 >>>>>>> c71e278 (Исправление ошибок в методах getAllUsers, removeFriend.)
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+        return ResponseEntity.ok(userService.findUserById(id));
+>>>>>>> b988486 (Исправление ошибок)
     }
 
     @PutMapping
