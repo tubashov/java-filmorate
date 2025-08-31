@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.storage.dao;
 
 import lombok.RequiredArgsConstructor;
+<<<<<<< HEAD
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -19,10 +20,26 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
+=======
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
+import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.mapper.FilmMapper;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+@Component
+@Qualifier("filmDbStorage")
+>>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
 @RequiredArgsConstructor
 public class FilmDbStorage implements FilmStorage {
 
     private final JdbcTemplate jdbcTemplate;
+<<<<<<< HEAD
 
     @Override
     public Film addFilm(Film film) {
@@ -45,10 +62,24 @@ public class FilmDbStorage implements FilmStorage {
         saveGenresForFilm(film);
 
         return getFilmById(filmId).orElseThrow();
+=======
+    private final FilmMapper filmMapper = new FilmMapper();
+
+    @Override
+    public Film addFilm(Film film) {
+        String sql = "INSERT INTO films (name, description, release_date, duration, mpa_rating) " +
+                "VALUES (?, ?, ?, ?, ?) RETURNING id";
+        int id = jdbcTemplate.queryForObject(sql, Integer.class,
+                film.getName(), film.getDescription(), film.getReleaseDate(), film.getDuration(), film.getMpa().name());
+        film.setId(id);
+        updateGenres(film);
+        return film;
+>>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
     }
 
     @Override
     public Film updateFilm(Film film) {
+<<<<<<< HEAD
         String sql = "UPDATE films SET name=?, description=?, release_date=?, duration=?, mpa_rating_id=? WHERE id=?";
         jdbcTemplate.update(sql,
                 film.getName(),
@@ -63,17 +94,30 @@ public class FilmDbStorage implements FilmStorage {
 
         return getFilmById(film.getId())
                 .orElseThrow(() -> new RuntimeException("Film not found after update"));
+=======
+        jdbcTemplate.update("UPDATE films SET name=?, description=?, release_date=?, duration=?, mpa_rating=? WHERE id=?",
+                film.getName(), film.getDescription(), film.getReleaseDate(), film.getDuration(), film.getMpa().name(), film.getId());
+        updateGenres(film);
+        return film;
+>>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
     }
 
     @Override
     public void removeFilm(int filmId) {
+<<<<<<< HEAD
         jdbcTemplate.update("DELETE FROM film_genres WHERE film_id=?", filmId);
         jdbcTemplate.update("DELETE FROM likes WHERE film_id=?", filmId);
         jdbcTemplate.update("DELETE FROM films WHERE id=?", filmId);
+=======
+        jdbcTemplate.update("DELETE FROM films WHERE id=?", filmId);
+        jdbcTemplate.update("DELETE FROM film_likes WHERE film_id=?", filmId);
+        jdbcTemplate.update("DELETE FROM film_genres WHERE film_id=?", filmId);
+>>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
     }
 
     @Override
     public Optional<Film> getFilmById(int id) {
+<<<<<<< HEAD
         String sql = """
                 SELECT f.id, f.name, f.description, f.release_date, f.duration,
                        m.id AS mpa_id, m.name AS mpa_name
@@ -92,11 +136,19 @@ public class FilmDbStorage implements FilmStorage {
         film.setLikes(loadLikesForFilm(film.getId()));
         film.setLikesCount(film.getLikes().size());
 
+=======
+        List<Film> films = jdbcTemplate.query("SELECT * FROM films WHERE id=?", filmMapper, id);
+        if (films.isEmpty()) return Optional.empty();
+        Film film = films.get(0);
+        loadLikes(film);
+        loadGenres(film);
+>>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
         return Optional.of(film);
     }
 
     @Override
     public List<Film> getAllFilms() {
+<<<<<<< HEAD
         String sql = """
                 SELECT f.id, f.name, f.description, f.release_date, f.duration,
                        m.id AS mpa_id, m.name AS mpa_name
@@ -267,5 +319,42 @@ public class FilmDbStorage implements FilmStorage {
     @Override
     public void removeLike(int filmId, int userId) {
         jdbcTemplate.update("DELETE FROM likes WHERE film_id = ? AND user_id = ?", filmId, userId);
+=======
+        List<Film> films = jdbcTemplate.query("SELECT * FROM films", filmMapper);
+        films.forEach(f -> {
+            loadLikes(f);
+            loadGenres(f);
+        });
+        return films;
+    }
+
+    private void loadLikes(Film film) {
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT user_id FROM film_likes WHERE film_id=?", film.getId());
+        for (Map<String, Object> row : rows) {
+            film.getLikes().add((Integer) row.get("user_id"));
+        }
+    }
+
+    public void addLike(int filmId, int userId) {
+        jdbcTemplate.update("INSERT INTO film_likes (film_id, user_id) VALUES (?, ?)", filmId, userId);
+    }
+
+    public void removeLike(int filmId, int userId) {
+        jdbcTemplate.update("DELETE FROM film_likes WHERE film_id=? AND user_id=?", filmId, userId);
+    }
+
+    private void loadGenres(Film film) {
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT genre FROM film_genres WHERE film_id=?", film.getId());
+        for (Map<String, Object> row : rows) {
+            film.getGenres().add((String) row.get("genre"));
+        }
+    }
+
+    public void updateGenres(Film film) {
+        jdbcTemplate.update("DELETE FROM film_genres WHERE film_id=?", film.getId());
+        for (String genre : film.getGenres()) {
+            jdbcTemplate.update("INSERT INTO film_genres (film_id, genre) VALUES (?, ?)", film.getId(), genre);
+        }
+>>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
     }
 }
