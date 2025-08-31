@@ -44,7 +44,7 @@ public class UserDbStorage implements UserStorage {
     }
 
     @Override
-    public Optional<User> getUserById(int id) {
+    public Optional<User> findUserById(int id) {
         List<User> users = jdbcTemplate.query("SELECT * FROM users WHERE id=?", userMapper, id);
         if (users.isEmpty()) return Optional.empty();
         User user = users.get(0);

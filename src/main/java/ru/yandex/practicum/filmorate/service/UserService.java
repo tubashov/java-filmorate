@@ -24,7 +24,7 @@ public class UserService {
     }
 
     public User updateUser(User user) {
-        if (userStorage.getUserById(user.getId()).isEmpty()) {
+        if (userStorage.findUserById(user.getId()).isEmpty()) {
             throw new NotFoundException("User with ID " + user.getId() + " not found");
         }
         return userStorage.updateUser(user);
@@ -34,15 +34,15 @@ public class UserService {
         return userStorage.getAllUsers();
     }
 
-    public User getUserById(int id) {
-        return userStorage.getUserById(id)
+    public User findUserById(int id) {
+        return userStorage.findUserById(id)
                 .orElseThrow(() -> new NotFoundException("User with ID " + id + " not found"));
     }
 
     public void addFriend(int userId, int friendId) {
-        User user = userStorage.getUserById(userId)
+        User user = userStorage.findUserById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
-        User friend = userStorage.getUserById(friendId)
+        User friend = userStorage.findUserById(friendId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + friendId + " not found"));
 
         // Помечаем как PENDING для отправителя
@@ -59,9 +59,9 @@ public class UserService {
     }
 
     public void removeFriend(int userId, int friendId) {
-        User user = userStorage.getUserById(userId)
+        User user = userStorage.findUserById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
-        User friend = userStorage.getUserById(friendId)
+        User friend = userStorage.findUserById(friendId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + friendId + " not found"));
 
         user.getFriends().remove(friendId);
@@ -72,10 +72,10 @@ public class UserService {
     }
 
     public List<User> getFriends(int userId) {
-        User user = getUserById(userId);
+        User user = findUserById(userId);
         return user.getFriends().entrySet().stream()
                 .filter(e -> e.getValue() == FriendshipStatus.CONFIRMED)
-                .map(e -> userStorage.getUserById(e.getKey())
+                .map(e -> userStorage.findUserById(e.getKey())
                         .orElseThrow(() -> new NotFoundException("Friend with ID " + e.getKey() + " not found")))
                 .collect(Collectors.toList());
     }
