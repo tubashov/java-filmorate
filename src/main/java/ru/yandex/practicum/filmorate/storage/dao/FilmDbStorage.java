@@ -77,18 +77,31 @@ public class FilmDbStorage implements FilmStorage {
     }
 
     private void loadGenres(Film film) {
-        String sql = "SELECT g.id, g.name FROM film_genres fg " +
-                "JOIN genres g ON fg.genre_id = g.id WHERE fg.film_id=?";
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, film.getId());
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(
+                "SELECT g.id, g.name FROM genres g " +
+                        "JOIN film_genres fg ON g.id = fg.genre_id " +
+                        "WHERE fg.film_id = ?", film.getId());
         for (Map<String, Object> row : rows) {
-            film.getGenres().add(new Genre((Integer) row.get("id"), (String) row.get("name")));
+            film.getGenres().add(new Genre(
+                    (Integer) row.get("id"),
+                    (String) row.get("name")
+            ));
         }
     }
 
     public void updateGenres(Film film) {
-        jdbcTemplate.update("DELETE FROM film_genres WHERE film_id=?", film.getId());
-        for (Genre genre : film.getGenres()) {
-            jdbcTemplate.update("INSERT INTO film_genres (film_id, genre_id) VALUES (?, ?)", film.getId(), genre.getId());
+        // Сначала удаляем старые связи фильма с жанрами
+        jdbcTemplate.update("DELETE FROM film_genres WHERE film_id = ?", film.getId());
+
+        // Если жанры есть, добавляем их в связующую таблицу
+        if (film.getGenres() != null && !film.getGenres().isEmpty()) {
+            for (Genre genre : film.getGenres()) {
+                jdbcTemplate.update(
+                        "INSERT INTO film_genres (film_id, genre_id) VALUES (?, ?)",
+                        film.getId(),
+                        genre.getId()
+                );
+            }
         }
     }
 }
