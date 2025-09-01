@@ -12,7 +12,7 @@ CREATE TABLE "films" (
   "description" varchar NOT NULL,
   "release_date" date NOT NULL,
   "duration" integer NOT NULL,
-  "mpa_id" integer NOT NULL
+  "mpa_rating_id" integer NOT NULL
 );
 
 CREATE TABLE "mpa_rating" (

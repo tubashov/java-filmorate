@@ -77,8 +77,7 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public Film addFilm(Film film) {
-        String sql = "INSERT INTO films (name, description, release_date, duration, mpa_id) VALUES (?, ?, ?, ?, ?)";
-
+        String sql = "INSERT INTO films (name, description, release_date, duration, mpa_rating_id) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
@@ -105,12 +104,17 @@ public class FilmDbStorage implements FilmStorage {
         jdbcTemplate.update(sql,
 =======
         jdbcTemplate.update(
+<<<<<<< HEAD
                 "UPDATE films SET name=?, description=?, release_date=?, duration=?, mpa_rating=? WHERE id=?",
 >>>>>>> e144011 (Исправление ошибок. Добавление классов GenreDto, MpaDto)
+=======
+                "UPDATE films SET name=?, description=?, release_date=?, duration=?, mpa_rating_id=? WHERE id=?",
+>>>>>>> fc3acd2 (Исправление ошибок.)
                 film.getName(),
                 film.getDescription(),
                 Date.valueOf(film.getReleaseDate()),
                 film.getDuration(),
+<<<<<<< HEAD
 <<<<<<< HEAD
                 film.getMpa() != null ? film.getMpa().getId() : film.getMpaId(),
                 film.getId());
@@ -125,6 +129,9 @@ public class FilmDbStorage implements FilmStorage {
                 film.getName(), film.getDescription(), film.getReleaseDate(), film.getDuration(), film.getMpa().name(), film.getId());
 =======
                 film.getMpa().name(),
+=======
+                film.getMpa().getId(),
+>>>>>>> fc3acd2 (Исправление ошибок.)
                 film.getId()
         );
 >>>>>>> e144011 (Исправление ошибок. Добавление классов GenreDto, MpaDto)
@@ -136,6 +143,7 @@ public class FilmDbStorage implements FilmStorage {
     @Override
     public void removeFilm(int filmId) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         jdbcTemplate.update("DELETE FROM film_genres WHERE film_id=?", filmId);
         jdbcTemplate.update("DELETE FROM likes WHERE film_id=?", filmId);
         jdbcTemplate.update("DELETE FROM films WHERE id=?", filmId);
@@ -144,10 +152,14 @@ public class FilmDbStorage implements FilmStorage {
         jdbcTemplate.update("DELETE FROM film_likes WHERE film_id=?", filmId);
         jdbcTemplate.update("DELETE FROM film_genres WHERE film_id=?", filmId);
 >>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
+=======
+
+>>>>>>> fc3acd2 (Исправление ошибок.)
     }
 
     @Override
     public Optional<Film> getFilmById(int id) {
+<<<<<<< HEAD
 <<<<<<< HEAD
         String sql = """
                 SELECT f.id, f.name, f.description, f.release_date, f.duration,
@@ -175,10 +187,14 @@ public class FilmDbStorage implements FilmStorage {
         loadGenres(film);
 >>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
         return Optional.of(film);
+=======
+        return Optional.empty();
+>>>>>>> fc3acd2 (Исправление ошибок.)
     }
 
     @Override
     public List<Film> getAllFilms() {
+<<<<<<< HEAD
 <<<<<<< HEAD
         String sql = """
                 SELECT f.id, f.name, f.description, f.release_date, f.duration,
@@ -372,13 +388,17 @@ public class FilmDbStorage implements FilmStorage {
 
     public void removeLike(int filmId, int userId) {
         jdbcTemplate.update("DELETE FROM film_likes WHERE film_id=? AND user_id=?", filmId, userId);
+=======
+        return List.of();
+>>>>>>> fc3acd2 (Исправление ошибок.)
     }
 
     private void loadGenres(Film film) {
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT genre FROM film_genres WHERE film_id=?", film.getId());
+        String sql = "SELECT g.id, g.name FROM film_genres fg " +
+                "JOIN genres g ON fg.genre_id = g.id WHERE fg.film_id=?";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, film.getId());
         for (Map<String, Object> row : rows) {
-            // Здесь можно доработать под Genre.id + Genre.name
-            film.getGenres().add(new Genre(0, (String) row.get("genre")));
+            film.getGenres().add(new Genre((Integer) row.get("id"), (String) row.get("name")));
         }
     }
 
