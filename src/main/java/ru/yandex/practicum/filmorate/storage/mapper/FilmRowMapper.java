@@ -37,12 +37,7 @@ import ru.yandex.practicum.filmorate.model.MpaRating;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.HashSet;
 
-/**
- * Маппер для преобразования строки таблицы films в объект Film.
- */
 public class FilmRowMapper implements RowMapper<Film> {
     @Override
     public Film mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -65,11 +60,9 @@ public class FilmRowMapper implements RowMapper<Film> {
         film.setDescription(rs.getString("description"));
         film.setReleaseDate(rs.getDate("release_date").toLocalDate());
         film.setDuration(rs.getInt("duration"));
-        film.setLikes(new HashSet<>());
-        film.setGenres(new HashSet<>());
-        film.setMpa(MpaRating.valueOf("mpa_id")); // 👈 конвертируем id в enum
+        String mpaName = rs.getString("mpa_rating");
+        film.setMpa(MpaRating.valueOf(mpaName));
         return film;
 >>>>>>> b988486 (Исправление ошибок)
     }
-
 }
