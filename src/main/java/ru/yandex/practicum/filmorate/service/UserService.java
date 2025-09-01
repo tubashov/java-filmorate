@@ -6,8 +6,8 @@ import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,13 +20,22 @@ public class UserService {
     }
 
     public User addUser(User user) {
+        // Инициализация friends на всякий случай
+        if (user.getFriends() == null) {
+            user.setFriends(new HashMap<>());
+        }
         return userStorage.addUser(user);
     }
 
     public User updateUser(User user) {
-        if (userStorage.findUserById(user.getId()).isEmpty()) {
-            throw new NotFoundException("User with ID " + user.getId() + " not found");
+        User existingUser = userStorage.findUserById(user.getId())
+                .orElseThrow(() -> new NotFoundException("User with ID " + user.getId() + " not found"));
+
+        // Сохраняем существующих друзей, если поле friends в обновляемом объекте null
+        if (user.getFriends() == null) {
+            user.setFriends(existingUser.getFriends());
         }
+
         return userStorage.updateUser(user);
     }
 
@@ -40,16 +49,18 @@ public class UserService {
     }
 
     public void addFriend(int userId, int friendId) {
-        User user = userStorage.findUserById(userId)
-                .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
-        User friend = userStorage.findUserById(friendId)
-                .orElseThrow(() -> new NotFoundException("User with id=" + friendId + " not found"));
+        User user = findUserById(userId);
+        User friend = findUserById(friendId);
+
+        // Инициализация friends если вдруг null
+        if (user.getFriends() == null) user.setFriends(new HashMap<>());
+        if (friend.getFriends() == null) friend.setFriends(new HashMap<>());
 
         // Помечаем как PENDING для отправителя
         user.getFriends().put(friendId, FriendshipStatus.PENDING);
 
-        // Если получатель уже отправлял запрос, то обе стороны становятся CONFIRMED
-        if (friend.getFriends().get(friendId) == FriendshipStatus.PENDING) {
+        // Если получатель уже отправлял запрос пользователю, обе стороны становятся CONFIRMED
+        if (friend.getFriends().get(userId) == FriendshipStatus.PENDING) { // исправлено friendId -> userId
             user.getFriends().put(friendId, FriendshipStatus.CONFIRMED);
             friend.getFriends().put(userId, FriendshipStatus.CONFIRMED);
         }
@@ -59,10 +70,12 @@ public class UserService {
     }
 
     public void removeFriend(int userId, int friendId) {
-        User user = userStorage.findUserById(userId)
-                .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found"));
-        User friend = userStorage.findUserById(friendId)
-                .orElseThrow(() -> new NotFoundException("User with id=" + friendId + " not found"));
+        User user = findUserById(userId);
+        User friend = findUserById(friendId);
+
+        // Инициализация friends если null
+        if (user.getFriends() == null) user.setFriends(new HashMap<>());
+        if (friend.getFriends() == null) friend.setFriends(new HashMap<>());
 
         user.getFriends().remove(friendId);
         friend.getFriends().remove(userId);
@@ -73,6 +86,10 @@ public class UserService {
 
     public List<User> getFriends(int userId) {
         User user = findUserById(userId);
+
+        // Если friends null, возвращаем пустой список
+        if (user.getFriends() == null) return List.of();
+
         return user.getFriends().entrySet().stream()
                 .filter(e -> e.getValue() == FriendshipStatus.CONFIRMED)
                 .map(e -> userStorage.findUserById(e.getKey())
