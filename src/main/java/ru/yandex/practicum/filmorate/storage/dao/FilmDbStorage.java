@@ -22,14 +22,19 @@ import java.util.stream.Collectors;
 @Repository
 =======
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Qualifier;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.mapper.FilmRowMapper;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -72,14 +77,28 @@ public class FilmDbStorage implements FilmStorage {
     @Override
     public Film addFilm(Film film) {
         String sql = "INSERT INTO films (name, description, release_date, duration, mpa_rating) " +
-                "VALUES (?, ?, ?, ?, ?) RETURNING id";
-        int id = jdbcTemplate.queryForObject(sql, Integer.class,
-                film.getName(), film.getDescription(), film.getReleaseDate(), film.getDuration(), film.getMpa().name());
-        film.setId(id);
+                "VALUES (?, ?, ?, ?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
+            ps.setString(1, film.getName());
+            ps.setString(2, film.getDescription());
+            ps.setDate(3, Date.valueOf(film.getReleaseDate()));
+            ps.setInt(4, film.getDuration());
+            ps.setString(5, film.getMpa().name());
+            return ps;
+        }, keyHolder);
+
+        // Получаем сгенерированный ID
+        film.setId(Objects.requireNonNull(keyHolder.getKey()).intValue());
+
         updateGenres(film);
         return film;
 >>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
     }
+
 
     @Override
     public Film updateFilm(Film film) {

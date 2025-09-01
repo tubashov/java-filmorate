@@ -2,6 +2,8 @@ package ru.yandex.practicum.filmorate.storage.dao;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 <<<<<<< HEAD
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
@@ -21,6 +23,8 @@ import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 import ru.yandex.practicum.filmorate.storage.mapper.UserRowMapper;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -39,9 +43,16 @@ public class UserDbStorage implements UserStorage {
     @Override
     public User addUser(User user) {
         String sql = "INSERT INTO users (email, login, name, birthday) VALUES (?, ?, ?, ?)";
+<<<<<<< HEAD
         var keyHolder = new org.springframework.jdbc.support.GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             var ps = connection.prepareStatement(sql, new String[]{"id"});
+=======
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+>>>>>>> 20b3e75 (Изменение UserDbStorage, FilmDbStorage для H2)
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getLogin());
             ps.setString(3, user.getName());
@@ -50,6 +61,7 @@ public class UserDbStorage implements UserStorage {
         }, keyHolder);
 
         user.setId(keyHolder.getKey().intValue());
+<<<<<<< HEAD
 =======
     private final UserMapper userMapper = new UserMapper();
 =======
@@ -63,8 +75,11 @@ public class UserDbStorage implements UserStorage {
                 user.getEmail(), user.getLogin(), user.getName(), user.getBirthday());
         user.setId(id);
 >>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
+=======
+>>>>>>> 20b3e75 (Изменение UserDbStorage, FilmDbStorage для H2)
         return user;
     }
+
 
     @Override
     public User updateUser(User user) {
