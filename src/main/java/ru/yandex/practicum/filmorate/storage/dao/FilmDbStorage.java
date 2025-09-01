@@ -385,7 +385,7 @@ public class FilmDbStorage implements FilmStorage {
     public void updateGenres(Film film) {
         jdbcTemplate.update("DELETE FROM film_genres WHERE film_id=?", film.getId());
         for (Genre genre : film.getGenres()) {
-            jdbcTemplate.update("INSERT INTO film_genres (film_id, genre) VALUES (?, ?)", film.getId(), genre.getName());
+            jdbcTemplate.update("INSERT INTO film_genres (film_id, genre_id) VALUES (?, ?)", film.getId(), genre.getId());
         }
 >>>>>>> b6f43cc (Добавление DAO: FilmDbStorage, UserDbStorage, FilmMapper, UserMapper)
     }
