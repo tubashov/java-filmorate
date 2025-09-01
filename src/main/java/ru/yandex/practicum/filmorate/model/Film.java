@@ -2,32 +2,39 @@ package ru.yandex.practicum.filmorate.model;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import ru.yandex.practicum.filmorate.validation.ReleaseDateConstraint;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Film {
+
     private int id;
 
     @NotBlank(message = "Название фильма не может быть пустым")
-    private String name;  // Название фильма
+    private String name;
 
-    @Size(min = 1, max = 200, message = "Описание не должно пустым и превышать 200 символов")
-    private String description;  // Краткое описание фильма
+    @Size(min = 1, max = 200, message = "Описание не должно быть пустым и не превышать 200 символов")
+    private String description;
 
     @NotNull(message = "Дата релиза обязательна")
-    @ReleaseDateConstraint  // Проверка корректности даты релиза
-    private LocalDate releaseDate;  // Дата релиза фильма
+    @ReleaseDateConstraint
+    private LocalDate releaseDate;
 
     @Positive(message = "Продолжительность должна быть положительной")
-    private int duration;  // Продолжительность фильма в минутах
+    private int duration;
 
-    // Множество id пользователей, которые поставили лайк этому фильму
     private Set<Integer> likes = new HashSet<>();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -35,8 +42,10 @@ public class Film {
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
     // Жанры фильма (может быть несколько)
     private Set<String> genres = new HashSet<>();
+=======
+    private Set<Genre> genres = new HashSet<>();
+>>>>>>> e144011 (Исправление ошибок. Добавление классов GenreDto, MpaDto)
 
-    // Возрастной рейтинг MPA (одно значение)
     private MpaRating mpa = MpaRating.NR;
 <<<<<<< HEAD
 =======
@@ -56,5 +65,16 @@ public class Film {
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 
-    // Ломбок @Data сгенерирует геттеры и сеттеры автоматически
+    // Для сериализации в JSON: {"mpa": {"id": 4, "name": "R"}}
+    @JsonGetter("mpa")
+    public MpaDto getMpaDto() {
+        return new MpaDto(mpa.getId(), mpa.getName());
+    }
+
+    @JsonSetter("mpa")
+    public void setMpaDto(MpaDto mpaDto) {
+        if (mpaDto != null && mpaDto.getId() != null) {
+            this.mpa = MpaRating.fromId(mpaDto.getId());
+        }
+    }
 }
