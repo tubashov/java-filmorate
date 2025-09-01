@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Qualifier;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.mapper.FilmRowMapper;
 
@@ -27,8 +28,7 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public Film addFilm(Film film) {
-        String sql = "INSERT INTO films (name, description, release_date, duration, mpa_rating) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO films (name, description, release_date, duration, mpa_rating) VALUES (?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -42,18 +42,22 @@ public class FilmDbStorage implements FilmStorage {
             return ps;
         }, keyHolder);
 
-        // Получаем сгенерированный ID
         film.setId(Objects.requireNonNull(keyHolder.getKey()).intValue());
-
         updateGenres(film);
         return film;
     }
 
-
     @Override
     public Film updateFilm(Film film) {
-        jdbcTemplate.update("UPDATE films SET name=?, description=?, release_date=?, duration=?, mpa_rating=? WHERE id=?",
-                film.getName(), film.getDescription(), film.getReleaseDate(), film.getDuration(), film.getMpa().name(), film.getId());
+        jdbcTemplate.update(
+                "UPDATE films SET name=?, description=?, release_date=?, duration=?, mpa_rating=? WHERE id=?",
+                film.getName(),
+                film.getDescription(),
+                Date.valueOf(film.getReleaseDate()),
+                film.getDuration(),
+                film.getMpa().name(),
+                film.getId()
+        );
         updateGenres(film);
         return film;
     }
@@ -103,14 +107,15 @@ public class FilmDbStorage implements FilmStorage {
     private void loadGenres(Film film) {
         List<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT genre FROM film_genres WHERE film_id=?", film.getId());
         for (Map<String, Object> row : rows) {
-            film.getGenres().add((String) row.get("genre"));
+            // Здесь можно доработать под Genre.id + Genre.name
+            film.getGenres().add(new Genre(0, (String) row.get("genre")));
         }
     }
 
     public void updateGenres(Film film) {
         jdbcTemplate.update("DELETE FROM film_genres WHERE film_id=?", film.getId());
-        for (String genre : film.getGenres()) {
-            jdbcTemplate.update("INSERT INTO film_genres (film_id, genre) VALUES (?, ?)", film.getId(), genre);
+        for (Genre genre : film.getGenres()) {
+            jdbcTemplate.update("INSERT INTO film_genres (film_id, genre) VALUES (?, ?)", film.getId(), genre.getName());
         }
     }
 }
