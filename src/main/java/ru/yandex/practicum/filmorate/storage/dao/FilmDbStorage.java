@@ -28,8 +28,7 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public Film addFilm(Film film) {
-        String sql = "INSERT INTO films (name, description, release_date, duration, mpa_id) VALUES (?, ?, ?, ?, ?)";
-
+        String sql = "INSERT INTO films (name, description, release_date, duration, mpa_rating_id) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
@@ -50,12 +49,12 @@ public class FilmDbStorage implements FilmStorage {
     @Override
     public Film updateFilm(Film film) {
         jdbcTemplate.update(
-                "UPDATE films SET name=?, description=?, release_date=?, duration=?, mpa_rating=? WHERE id=?",
+                "UPDATE films SET name=?, description=?, release_date=?, duration=?, mpa_rating_id=? WHERE id=?",
                 film.getName(),
                 film.getDescription(),
                 Date.valueOf(film.getReleaseDate()),
                 film.getDuration(),
-                film.getMpa().name(),
+                film.getMpa().getId(),
                 film.getId()
         );
         updateGenres(film);
@@ -64,51 +63,25 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public void removeFilm(int filmId) {
-        jdbcTemplate.update("DELETE FROM films WHERE id=?", filmId);
-        jdbcTemplate.update("DELETE FROM film_likes WHERE film_id=?", filmId);
-        jdbcTemplate.update("DELETE FROM film_genres WHERE film_id=?", filmId);
+
     }
 
     @Override
     public Optional<Film> getFilmById(int id) {
-        List<Film> films = jdbcTemplate.query("SELECT * FROM films WHERE id=?", filmMapper, id);
-        if (films.isEmpty()) return Optional.empty();
-        Film film = films.get(0);
-        loadLikes(film);
-        loadGenres(film);
-        return Optional.of(film);
+        return Optional.empty();
     }
 
     @Override
     public List<Film> getAllFilms() {
-        List<Film> films = jdbcTemplate.query("SELECT * FROM films", filmMapper);
-        films.forEach(f -> {
-            loadLikes(f);
-            loadGenres(f);
-        });
-        return films;
-    }
-
-    private void loadLikes(Film film) {
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT user_id FROM film_likes WHERE film_id=?", film.getId());
-        for (Map<String, Object> row : rows) {
-            film.getLikes().add((Integer) row.get("user_id"));
-        }
-    }
-
-    public void addLike(int filmId, int userId) {
-        jdbcTemplate.update("INSERT INTO film_likes (film_id, user_id) VALUES (?, ?)", filmId, userId);
-    }
-
-    public void removeLike(int filmId, int userId) {
-        jdbcTemplate.update("DELETE FROM film_likes WHERE film_id=? AND user_id=?", filmId, userId);
+        return List.of();
     }
 
     private void loadGenres(Film film) {
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList("SELECT genre FROM film_genres WHERE film_id=?", film.getId());
+        String sql = "SELECT g.id, g.name FROM film_genres fg " +
+                "JOIN genres g ON fg.genre_id = g.id WHERE fg.film_id=?";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, film.getId());
         for (Map<String, Object> row : rows) {
-            // Здесь можно доработать под Genre.id + Genre.name
-            film.getGenres().add(new Genre(0, (String) row.get("genre")));
+            film.getGenres().add(new Genre((Integer) row.get("id"), (String) row.get("name")));
         }
     }
 
