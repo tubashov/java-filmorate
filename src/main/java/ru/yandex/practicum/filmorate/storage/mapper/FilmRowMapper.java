@@ -4,8 +4,10 @@ import org.springframework.jdbc.core.RowMapper;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.MpaRating;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedHashSet;
 
 public class FilmRowMapper implements RowMapper<Film> {
     @Override
@@ -14,10 +16,16 @@ public class FilmRowMapper implements RowMapper<Film> {
         film.setId(rs.getInt("id"));
         film.setName(rs.getString("name"));
         film.setDescription(rs.getString("description"));
-        film.setReleaseDate(rs.getDate("release_date").toLocalDate());
+        Date release = rs.getDate("release_date");
+        if (release != null) {
+            film.setReleaseDate(release.toLocalDate());
+        }
         film.setDuration(rs.getInt("duration"));
+
         int mpaId = rs.getInt("mpa_rating_id");
-        film.setMpa(MpaRating.fromId(rs.getInt("mpa_rating_id")));
+        film.setMpa(MpaRating.fromId(mpaId));
+
+        film.setGenres(new LinkedHashSet<>()); // Чтобы не было null
         return film;
     }
 }
