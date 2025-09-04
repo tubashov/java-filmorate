@@ -1,7 +1,9 @@
 package ru.yandex.practicum.filmorate.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -18,18 +20,22 @@ import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 =======
 import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+>>>>>>> 284ec40 (Исправление ошибок.)
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserStorage userStorage;
 
+<<<<<<< HEAD
     public UserService(UserStorage userStorage) {
         this.userStorage = userStorage;
     }
@@ -40,15 +46,14 @@ public class UserService {
 <<<<<<< HEAD
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+>>>>>>> 284ec40 (Исправление ошибок.)
     public User addUser(User user) {
-        // Инициализация friends на всякий случай
-        if (user.getFriends() == null) {
-            user.setFriends(new HashMap<>());
-        }
         return userStorage.addUser(user);
     }
 
     public User updateUser(User user) {
+<<<<<<< HEAD
 <<<<<<< HEAD
         if (userStorage.findUserById(user.getId()).isEmpty()) {
             throw new NotFoundException("User with ID " + user.getId() + " not found");
@@ -86,11 +91,24 @@ public class UserService {
         if (user.getFriends() == null) {
             user.setFriends(existingUser.getFriends());
 >>>>>>> c942a69 (Исправление ошибок. Инициализация friends-безопасный. Проверка подтверждения дружбы.)
+=======
+        // Проверка: передан ли ID
+        if (user.getId() == null) {
+            throw new IllegalArgumentException("ID пользователя не может быть null при обновлении");
+>>>>>>> 284ec40 (Исправление ошибок.)
         }
 
+        // Проверка существования пользователя
+        Optional<User> existingUser = userStorage.  findUserById(user.getId());
+        if (existingUser.isEmpty()) {
+            throw new NotFoundException("Пользователь", user.getId());
+        }
+
+        // Обновляем и возвращаем обновлённого пользователя
         return userStorage.updateUser(user);
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -100,10 +118,33 @@ public class UserService {
 >>>>>>> 4c4e1a9 (Исправление метода removeFriend.)
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+    public List<User> getCommonFriends(int userId, int otherId) {
+        User user = findUserById(userId);
+        User other = findUserById(otherId);
+
+        // гарантируем, что friends не null
+        var userFriends = user.getFriends() == null ? Set.<Integer>of() : user.getFriends();
+        var otherFriends = other.getFriends() == null ? Set.<Integer>of() : other.getFriends();
+
+        // находим общих друзей
+        return userFriends.stream()
+                .filter(otherFriends::contains)
+                .map(this::findUserById)
+                .toList();
+    }
+
+    public User findUserById(int id) {
+        return userStorage.findUserById(id)
+                .orElseThrow(() -> new NotFoundException("Пользователь с id " + id + " не найден"));
+    }
+
+>>>>>>> 284ec40 (Исправление ошибок.)
     public List<User> getAllUsers() {
         return userStorage.getAllUsers();
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -352,5 +393,31 @@ public class UserService {
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
                 .collect(Collectors.toList());
+=======
+    public void addFriend(int userId, int friendId) {
+        // проверка существования пользователей
+        findUserById(userId);
+        findUserById(friendId);
+        userStorage.addFriend(userId, friendId); // односторонняя дружба
+    }
+
+    public void removeFriend(int userId, int friendId) {
+        // проверка существования пользователей
+        findUserById(userId);
+        findUserById(friendId);
+        userStorage.removeFriend(userId, friendId);
+    }
+
+    public List<User> getFriends(int userId) {
+        User user = findUserById(userId); // выбросит NotFoundException, если нет
+        if (user.getFriends() == null || user.getFriends().isEmpty()) {
+            return List.of(); // нет друзей
+        }
+
+        // Берем только тех пользователей, чьи id есть в списке friends
+        return userStorage.getAllUsers().stream()
+                .filter(u -> user.getFriends().contains(u.getId()))
+                .toList();
+>>>>>>> 284ec40 (Исправление ошибок.)
     }
 }

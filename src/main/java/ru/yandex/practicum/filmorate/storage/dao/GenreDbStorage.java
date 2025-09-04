@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.storage.dao;
 
 import lombok.RequiredArgsConstructor;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Genre;
@@ -24,32 +25,41 @@ public class GenreDbStorage {
         );
 =======
 import org.springframework.beans.factory.annotation.Qualifier;
+=======
+>>>>>>> 284ec40 (Исправление ошибок.)
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.storage.mapper.GenreRowMapper;
 
 import java.util.List;
 import java.util.Optional;
 
-// DAO-слой для работы с таблицей genres
 @Repository
-@Qualifier("GenreDbStorage")
 @RequiredArgsConstructor
 public class GenreDbStorage {
-    private final JdbcTemplate jdbcTemplate;
-    private final GenreRowMapper genreRowMapper = new GenreRowMapper();
 
-    // Получение всех жанров
+    private final JdbcTemplate jdbcTemplate;
+
+    // Получение всех жанров, отсортированных по id
     public List<Genre> getAllGenres() {
+<<<<<<< HEAD
         String sql = "SELECT * FROM genres";
         return jdbcTemplate.query(sql, genreRowMapper);
 >>>>>>> 806c8cf (Добавление DAO для жанров и рейтига)
+=======
+        String sql = "SELECT id, name FROM genres ORDER BY id ASC";
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new Genre(rs.getInt("id"), rs.getString("name"))
+        );
+>>>>>>> 284ec40 (Исправление ошибок.)
     }
 
     // Получение жанра по ID
     public Optional<Genre> getGenreById(int id) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 284ec40 (Исправление ошибок.)
         String sql = "SELECT id, name FROM genres WHERE id = ?";
         List<Genre> list = jdbcTemplate.query(sql, (rs, rowNum) ->
                 new Genre(rs.getInt("id"), rs.getString("name")), id
@@ -62,6 +72,7 @@ public class GenreDbStorage {
         String sql = "SELECT COUNT(*) FROM genres WHERE id = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
         return count != null && count > 0;
+<<<<<<< HEAD
     }
     // Получение списка жанров по списку ID
     public List<Genre> getGenresByIds(List<Integer> ids) {
@@ -81,5 +92,7 @@ public class GenreDbStorage {
         List<Genre> genres = jdbcTemplate.query(sql, genreRowMapper, id);
         return genres.stream().findFirst();
 >>>>>>> 806c8cf (Добавление DAO для жанров и рейтига)
+=======
+>>>>>>> 284ec40 (Исправление ошибок.)
     }
 }

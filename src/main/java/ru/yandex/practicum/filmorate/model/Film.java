@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import ru.yandex.practicum.filmorate.dto.MpaDto;
 import ru.yandex.practicum.filmorate.validation.ReleaseDateConstraint;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
@@ -33,6 +34,7 @@ public class Film {
     private int duration;
 
     private Set<Integer> likes = new HashSet<>();
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -64,17 +66,27 @@ public class Film {
 >>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+    private Set<Genre> genres = new HashSet<>();
+    private int likesCount = 0;
 
-    // Для сериализации в JSON: {"mpa": {"id": 4, "name": "R"}}
+    private MpaRating mpa;   // enum
+    private Integer mpaId;   // временное поле для десериализации
+>>>>>>> 284ec40 (Исправление ошибок.)
+
     @JsonGetter("mpa")
     public MpaDto getMpaDto() {
-        return new MpaDto(mpa.getId(), mpa.getName());
+        if (mpa != null) {
+            return new MpaDto(mpa.getId(), mpa.getName());
+        }
+        return null;
     }
 
     @JsonSetter("mpa")
     public void setMpaDto(MpaDto mpaDto) {
         if (mpaDto != null && mpaDto.getId() != null) {
-            this.mpa = MpaRating.fromId(mpaDto.getId());
+            this.mpaId = mpaDto.getId(); // временно сохраняем ID
+            this.mpa = null;             // enum пока не устанавливаем
         }
     }
 }

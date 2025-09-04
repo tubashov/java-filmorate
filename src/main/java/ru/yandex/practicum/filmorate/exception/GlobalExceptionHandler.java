@@ -1,18 +1,18 @@
 package ru.yandex.practicum.filmorate.exception;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import jakarta.validation.ConstraintViolationException;
-
 import java.util.HashMap;
 import java.util.Map;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 @RestControllerAdvice // Глобальный обработчик исключений для всех контроллеров
 public class GlobalExceptionHandler {
@@ -27,11 +27,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class) // Ошибки валидации @Valid
 >>>>>>> 39cd978 (Добавление логирония в класс GlobalExceptionHandler.)
 =======
+=======
+/**
+ * Глобальный обработчик исключений.
+ */
+@Slf4j
+>>>>>>> 284ec40 (Исправление ошибок.)
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+<<<<<<< HEAD
     @ExceptionHandler(MethodArgumentNotValidException.class) // Ошибки валидации @Valid (тело запроса)
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -45,21 +51,31 @@ public class GlobalExceptionHandler {
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         log.warn("Ошибка валидации тела запроса: {}", errors);
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+=======
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            errors.put(error.getField(), error.getDefaultMessage());
+        }
+        log.warn("Validation error: {}", errors);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(errors);
+>>>>>>> 284ec40 (Исправление ошибок.)
     }
 
-    @ExceptionHandler(ConstraintViolationException.class) // Ошибки валидации параметров метода/контроллера
+    @ExceptionHandler(ConstraintViolationException.class) // Ошибки валидации параметров
     public ResponseEntity<Map<String, String>> handleConstraintViolation(ConstraintViolationException ex) {
         Map<String, String> errors = new HashMap<>();
-        ex.getConstraintViolations().forEach(violation -> {
-            String fieldName = violation.getPropertyPath().toString();
-            String message = violation.getMessage();
-            errors.put(fieldName, message);
-        });
+        ex.getConstraintViolations().forEach(violation ->
+                errors.put(violation.getPropertyPath().toString(), violation.getMessage()));
 
-        log.warn("Ошибка валидации параметров: {}", errors);
+        //log.warn("Ошибка валидации параметров: {}", errors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
+<<<<<<< HEAD
     @ExceptionHandler(ValidationException.class) // Кастомная ошибка валидации
 <<<<<<< HEAD
 =======
@@ -71,8 +87,11 @@ public class GlobalExceptionHandler {
 >>>>>>> 39cd978 (Добавление логирония в класс GlobalExceptionHandler.)
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+    @ExceptionHandler(ValidationException.class) // Кастомная валидация
+>>>>>>> 284ec40 (Исправление ошибок.)
     public ResponseEntity<Map<String, String>> handleValidation(ValidationException ex) {
-        log.warn("ValidationException: {}", ex.getMessage());
+        //log.warn("ValidationException: {}", ex.getMessage());
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("error", ex.getMessage()));
@@ -80,7 +99,11 @@ public class GlobalExceptionHandler {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @ExceptionHandler(NotFoundException.class) // Универсальная ошибка "не найдено"
+=======
+    @ExceptionHandler(NotFoundException.class) // Ошибка "не найдено"
+>>>>>>> 284ec40 (Исправление ошибок.)
     public ResponseEntity<Map<String, String>> handleNotFound(NotFoundException ex) {
         log.warn("NotFoundException: {}", ex.getMessage());
 =======
@@ -98,6 +121,7 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", ex.getMessage()));
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     @ExceptionHandler(Exception.class) // Любая непредвиденная ошибка
@@ -122,6 +146,21 @@ public class GlobalExceptionHandler {
         log.error("Необработанная ошибка: ", ex);
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+=======
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleUserNotFound(UserNotFoundException ex) {
+        //log.warn("UserNotFoundException: {}", ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("error", ex.getMessage()));
+    }
+
+    @ExceptionHandler(Exception.class) // Прочие ошибки
+    public ResponseEntity<Map<String, String>> handleGeneralError(Exception ex) {
+        log.error("Необработанная ошибка: ", ex);
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+>>>>>>> 284ec40 (Исправление ошибок.)
                 .body(Map.of("error", ex.getMessage()));
     }
 }

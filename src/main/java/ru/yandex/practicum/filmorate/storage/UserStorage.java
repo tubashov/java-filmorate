@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserStorage {
-
     User addUser(User user);
 
     User updateUser(User user);
@@ -16,4 +15,10 @@ public interface UserStorage {
     Optional<User> findUserById(int id);
 
     List<User> getAllUsers();
+
+    // ✨ добавляем методы для дружбы
+    void addFriend(int userId, int friendId);
+
+    void removeFriend(int userId, int friendId);
 }
+
