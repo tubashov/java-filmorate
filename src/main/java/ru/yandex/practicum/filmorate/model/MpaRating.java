@@ -1,5 +1,7 @@
 package ru.yandex.practicum.filmorate.model;
 
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
+
 public enum MpaRating {
 <<<<<<< HEAD
     G,       // нет возрастных ограничений
@@ -27,8 +29,7 @@ public enum MpaRating {
     PG(2, "PG"),
     PG13(3, "PG-13"),
     R(4, "R"),
-    NC17(5, "NC-17"),
-    NR(6, "NR");
+    NC17(5, "NC-17");
 
     private final int id;
     private final String name;
@@ -45,8 +46,7 @@ public enum MpaRating {
         for (MpaRating rating : values()) {
             if (rating.id == id) return rating;
         }
-        return NR;
+        throw new NotFoundException("MPA Rating с ID " + id + " не найден");
     }
 >>>>>>> b988486 (Исправление ошибок)
 }
-
