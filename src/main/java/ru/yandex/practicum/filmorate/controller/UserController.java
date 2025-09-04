@@ -9,18 +9,19 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/users")
-@RequiredArgsConstructor // автоматически создаёт конструктор для final полей
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        User savedUser = userService.addUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(user));
     }
 
     @GetMapping
@@ -30,20 +31,19 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Integer id) {
-        User user = userService.findUserById(id);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userService.findUserById(id));
     }
 
     @PutMapping
     public ResponseEntity<User> updateUser(@Valid @RequestBody User user) {
-        User updatedUser = userService.updateUser(user);
-        return ResponseEntity.ok(updatedUser);
+        log.info("Update user: {}", user);
+        return ResponseEntity.ok(userService.updateUser(user));
     }
 
     @PutMapping("/{userId}/friends/{friendId}")
     public ResponseEntity<Void> addFriend(@PathVariable Integer userId, @PathVariable Integer friendId) {
         userService.addFriend(userId, friendId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build(); // 200 OK
     }
 
     @DeleteMapping("/{userId}/friends/{friendId}")
@@ -54,13 +54,14 @@ public class UserController {
 
     @GetMapping("/{id}/friends")
     public ResponseEntity<List<User>> getFriends(@PathVariable Integer id) {
-        List<User> friends = userService.getFriends(id);
-        return ResponseEntity.ok(friends);
+        return ResponseEntity.ok(userService.getFriends(id));
     }
 
     @GetMapping("/{id}/friends/common/{otherId}")
-    public ResponseEntity<List<User>> getCommonFriends(@PathVariable Integer id, @PathVariable Integer otherId) {
-        List<User> commonFriends = userService.getCommonFriends(id, otherId);
-        return ResponseEntity.ok(commonFriends);
+    public ResponseEntity<List<User>> getCommonFriends(
+            @PathVariable Integer id,
+            @PathVariable Integer otherId
+    ) {
+        return ResponseEntity.ok(userService.getCommonFriends(id, otherId));
     }
 }

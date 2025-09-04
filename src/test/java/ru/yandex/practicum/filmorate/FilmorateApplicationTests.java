@@ -2,7 +2,6 @@ package ru.yandex.practicum.filmorate;
 
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
@@ -13,17 +12,19 @@ import ru.yandex.practicum.filmorate.storage.dao.UserDbStorage;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @JdbcTest
 @AutoConfigureTestDatabase
+@Import(UserDbStorage.class)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-@Import({UserDbStorage.class})
 class FilmoRateApplicationTests {
 
     private final UserDbStorage userStorage;
 
     @Test
-    public void testFindUserById() {
-        // 1. Создаём пользователя и сохраняем в БД
+    void testFindUserById() {
+        // 1. Создаём пользователя
         User newUser = new User();
         newUser.setEmail("test@example.com");
         newUser.setLogin("testUser");
@@ -32,7 +33,7 @@ class FilmoRateApplicationTests {
 
         User savedUser = userStorage.addUser(newUser);
 
-        // 2. Получаем пользователя по ID
+        // 2. Ищем по ID
         Optional<User> userOptional = userStorage.findUserById(savedUser.getId());
 
         // 3. Проверяем

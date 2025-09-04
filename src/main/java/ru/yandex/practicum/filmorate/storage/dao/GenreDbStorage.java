@@ -1,33 +1,40 @@
 package ru.yandex.practicum.filmorate.storage.dao;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.storage.mapper.GenreRowMapper;
 
 import java.util.List;
 import java.util.Optional;
 
-// DAO-слой для работы с таблицей genres
 @Repository
-@Qualifier("GenreDbStorage")
 @RequiredArgsConstructor
 public class GenreDbStorage {
-    private final JdbcTemplate jdbcTemplate;
-    private final GenreRowMapper genreRowMapper = new GenreRowMapper();
 
-    // Получение всех жанров
+    private final JdbcTemplate jdbcTemplate;
+
+    // Получение всех жанров, отсортированных по id
     public List<Genre> getAllGenres() {
-        String sql = "SELECT * FROM genres";
-        return jdbcTemplate.query(sql, genreRowMapper);
+        String sql = "SELECT id, name FROM genres ORDER BY id ASC";
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+                new Genre(rs.getInt("id"), rs.getString("name"))
+        );
     }
 
     // Получение жанра по ID
     public Optional<Genre> getGenreById(int id) {
-        String sql = "SELECT * FROM genres WHERE id = ?";
-        List<Genre> genres = jdbcTemplate.query(sql, genreRowMapper, id);
-        return genres.stream().findFirst();
+        String sql = "SELECT id, name FROM genres WHERE id = ?";
+        List<Genre> list = jdbcTemplate.query(sql, (rs, rowNum) ->
+                new Genre(rs.getInt("id"), rs.getString("name")), id
+        );
+        return list.stream().findFirst();
+    }
+
+    // Проверка существования жанра по ID
+    public boolean existsById(int id) {
+        String sql = "SELECT COUNT(*) FROM genres WHERE id = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
+        return count != null && count > 0;
     }
 }
