@@ -1,4 +1,6 @@
+# =========================
 # Компиляционные артефакты
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -17,6 +19,9 @@
 
 >>>>>>> 5470a70 (Update .gitignore to exclude IDE and build files)
 checkstyle.xml
+=======
+# =========================
+>>>>>>> df05cae (Update .gitignore to exclude IDE and build files)
 *.class
 *.jar
 =======
@@ -51,25 +56,19 @@ hs_err_pid*
 out/
 target/
 
+# =========================
+# IDE
+# =========================
 # IntelliJ IDEA
 .idea/
 *.iws
 *.iml
 *.ipr
 
-# macOS
-*.DS_Store
-
-# Логи
-*.log
-
-# Базы данных
-*.db
-db/*
-
 # VSCode
 .vscode/
 
+<<<<<<< HEAD
 # Windows системные
 Thumbs.db
 <<<<<<< HEAD
@@ -77,11 +76,44 @@ Thumbs.db
 <<<<<<< HEAD
 =======
 >>>>>>> dfb8514 (Исправление ошибок.)
+=======
+# Eclipse
+.settings/
+*.launch
+*.metadata/
+*.classpath
+*.project
+>>>>>>> df05cae (Update .gitignore to exclude IDE and build files)
 
-# Maven Wrapper (не добавляем в PR)
+# =========================
+# Системные файлы
+# =========================
+# macOS
+*.DS_Store
+# Windows
+Thumbs.db
+# Linux temp
+*~
+
+# =========================
+# Логи
+# =========================
+*.log
+
+# =========================
+# Базы данных
+# =========================
+*.db
+db/
+
+# =========================
+# Maven / Gradle
+# =========================
+# Maven Wrapper
 .mvn/
 mvnw
 mvnw.cmd
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .idea/
@@ -97,3 +129,16 @@ mvnw.cmd
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 =======
 >>>>>>> dfb8514 (Исправление ошибок.)
+=======
+# Gradle
+.gradle/
+build/
+
+# =========================
+# Тестовые и временные файлы
+# =========================
+*.tmp
+*.bak
+*.swp
+*.swo
+>>>>>>> df05cae (Update .gitignore to exclude IDE and build files)
