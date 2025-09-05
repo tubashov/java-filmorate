@@ -21,7 +21,11 @@
 checkstyle.xml
 =======
 # =========================
+<<<<<<< HEAD
 >>>>>>> df05cae (Update .gitignore to exclude IDE and build files)
+=======
+.github/workflows/api-tests.yml
+>>>>>>> 2f4824e (Update .gitignore)
 *.class
 *.jar
 =======
