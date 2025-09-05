@@ -1,7 +1,6 @@
-# =========================
 # Компиляционные артефакты
-# =========================
-#.github/workflows/api-tests.yml
+.github/workflows/api-tests.yml
+checkstyle.xml
 *.class
 *.jar
 *.war
@@ -14,72 +13,29 @@ hs_err_pid*
 out/
 target/
 
-# =========================
-# Статический анализ
-# =========================
-checkstyle.xml
-
-# =========================
-# IDE
-# =========================
 # IntelliJ IDEA
 .idea/
-.idea/.gitignore
-.idea/compiler.xml
-.idea/encodings.xml
-.idea/jarRepositories.xml
-.idea/misc.xml
-.idea/vcs.xml
 *.iws
 *.iml
 *.ipr
 
+# macOS
+*.DS_Store
+
+# Логи
+*.log
+
+# Базы данных
+*.db
+db/*
+
 # VSCode
 .vscode/
 
-# Eclipse
-.settings/
-*.launch
-*.metadata/
-*.classpath
-*.project
-
-# =========================
-# Системные файлы
-# =========================
-# macOS
-*.DS_Store
-# Windows
+# Windows системные
 Thumbs.db
-# Linux temp
-*~
 
-# =========================
-# Логи
-# =========================
-*.log
-
-# =========================
-# Базы данных
-# =========================
-*.db
-db/
-
-# =========================
-# Maven / Gradle
-# =========================
-# Maven Wrapper
+# Maven Wrapper (не добавляем в PR)
 .mvn/
 mvnw
 mvnw.cmd
-# Gradle
-.gradle/
-build/
-
-# =========================
-# Тестовые и временные файлы
-# =========================
-*.tmp
-*.bak
-*.swp
-*.swo
