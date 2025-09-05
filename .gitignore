@@ -2,12 +2,16 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 .github/workflows/api-tests.yml
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 .github/workflows/api-tests.yml
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+#.github/workflows/api-tests.yml
+>>>>>>> de50bb6 (Редактирование .gitigmore + api-test.yml)
 checkstyle.xml
 *.class
 *.jar
