@@ -33,5 +33,4 @@ public class GenreController {
         return genreStorage.getGenreById(id)
                 .orElseThrow(() -> new NotFoundException("Жанр", id));
     }
-
 }

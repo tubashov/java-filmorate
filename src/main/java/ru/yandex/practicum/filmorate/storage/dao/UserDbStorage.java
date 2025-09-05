@@ -88,18 +88,14 @@ public class UserDbStorage implements UserStorage {
         user.getFriends().addAll(friendIds);
     }
 
-    /**
-     * Добавление заявки в друзья (односторонняя дружба)
-     */
+    // Добавление заявки в друзья (односторонняя дружба)
     @Override
     public void addFriend(int userId, int friendId) {
         String sql = "INSERT INTO friendships (user_id, friend_id, status) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, userId, friendId, "PENDING"); // всегда PENDING для нового запроса
     }
 
-    /**
-     * Подтверждение заявки в друзья
-     */
+    // Подтверждение заявки в друзья
     public void acceptFriend(int userId, int friendId) {
         String sql = "UPDATE friendships SET status=? WHERE user_id=? AND friend_id=?";
         jdbcTemplate.update(sql, "ACCEPTED", friendId, userId); // обратная запись подтверждает заявку
