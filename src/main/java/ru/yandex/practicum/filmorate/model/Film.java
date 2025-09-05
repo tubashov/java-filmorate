@@ -77,10 +77,8 @@ public class Film {
     private Integer mpaId; // временное поле для приёма "mpaId" в JSON
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
 
-    // При JSON-входе поле "mpaId": 4 будет корректно установлено
     @JsonSetter("mpaId")
     public void setMpaId(Integer mpaId) {
         this.mpaId = mpaId;
     }
-    // При JSON-входе поле "mpa": { "id": 4, "name": "R" } Jackson сам вызовет setMpa(Mpa)
 }

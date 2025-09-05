@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+<<<<<<< HEAD
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.model.Mpa;
@@ -30,6 +31,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
+=======
+>>>>>>> 044f79a (Исправление ошибок.)
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.model.Mpa;
@@ -57,6 +60,9 @@ public class FilmDbStorage implements FilmStorage {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 044f79a (Исправление ошибок.)
 
     @Override
     public Film addFilm(Film film) {
@@ -339,6 +345,7 @@ public class FilmDbStorage implements FilmStorage {
     }
 
     // Row mapping
+<<<<<<< HEAD
     private Film mapRowToFilm(ResultSet rs, int rowNum) throws SQLException {
         Film film = new Film();
 
@@ -537,6 +544,8 @@ public class FilmDbStorage implements FilmStorage {
     }
 
     // --- Row mapping ---
+=======
+>>>>>>> 044f79a (Исправление ошибок.)
     private Film mapRowToFilm(ResultSet rs, int rowNum) throws SQLException {
         Film film = new Film();
 
@@ -560,18 +569,17 @@ public class FilmDbStorage implements FilmStorage {
                 film.setMpa(null);
             }
         } catch (SQLException e) {
-            // column absent or null -> keep as null
             film.setMpa(null);
         }
 
-        // initialize collections; actual values set later
+        // Создание коллекций
         film.setLikes(new HashSet<>());
         film.setGenres(new LinkedHashSet<>());
 
         return film;
     }
 
-    // --- Genres helpers (без изменений логики) ---
+    // Genres
     private Set<Genre> loadGenresForFilm(int filmId) {
         String sql = "SELECT g.id, g.name FROM genres g " +
                 "JOIN film_genres fg ON g.id = fg.genre_id WHERE fg.film_id=?";
@@ -610,7 +618,7 @@ public class FilmDbStorage implements FilmStorage {
 >>>>>>> 284ec40 (Исправление ошибок.)
     }
 
-    // --- Likes helpers ---
+    // Likes
     private Set<Integer> loadLikesForFilm(int filmId) {
         String sql = "SELECT user_id FROM likes WHERE film_id = ?";
         List<Integer> rows = jdbcTemplate.queryForList(sql, Integer.class, filmId);
@@ -648,5 +656,4 @@ public class FilmDbStorage implements FilmStorage {
     public void removeLike(int filmId, int userId) {
         jdbcTemplate.update("DELETE FROM likes WHERE film_id = ? AND user_id = ?", filmId, userId);
     }
-
 }
