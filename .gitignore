@@ -1,6 +1,6 @@
+# =========================
 # Компиляционные артефакты
-
-checkstyle.xml
+# =========================
 *.class
 *.jar
 *.war
@@ -13,29 +13,61 @@ hs_err_pid*
 out/
 target/
 
+# =========================
+# IDE
+# =========================
 # IntelliJ IDEA
 .idea/
 *.iws
 *.iml
 *.ipr
 
-# macOS
-*.DS_Store
-
-# Логи
-*.log
-
-# Базы данных
-*.db
-db/*
-
 # VSCode
 .vscode/
 
-# Windows системные
-Thumbs.db
+# Eclipse
+.settings/
+*.launch
+*.metadata/
+*.classpath
+*.project
 
-# Maven Wrapper (не добавляем в PR)
+# =========================
+# Системные файлы
+# =========================
+# macOS
+*.DS_Store
+# Windows
+Thumbs.db
+# Linux temp
+*~
+
+# =========================
+# Логи
+# =========================
+*.log
+
+# =========================
+# Базы данных
+# =========================
+*.db
+db/
+
+# =========================
+# Maven / Gradle
+# =========================
+# Maven Wrapper
 .mvn/
 mvnw
 mvnw.cmd
+# Gradle
+.gradle/
+build/
+
+# =========================
+# Тестовые и временные файлы
+# =========================
+*.tmp
+*.bak
+*.swp
+*.swo
