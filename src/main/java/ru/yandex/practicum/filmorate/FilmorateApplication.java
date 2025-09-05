@@ -22,6 +22,7 @@ public class FilmorateApplication {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 	
@@ -57,4 +58,7 @@ public class FilmorateApplication {
 =======
     
 >>>>>>> 2584ca4 (Исправление ошибок.)
+=======
+    
+>>>>>>> 173cf76 (Update .gitignore)
 }

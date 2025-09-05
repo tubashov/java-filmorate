@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 .github/workflows/api-tests.yml
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -55,6 +56,12 @@ checkstyle.xml
 >>>>>>> 924e392 (Удалил папку .idea из репозитория и добавил в .gitignore)
 =======
 >>>>>>> 976e23f (Исправление ошибок.)
+=======
+# =========================
+#.github/workflows/api-tests.yml
+*.class
+*.jar
+>>>>>>> 173cf76 (Update .gitignore)
 *.war
 *.nar
 *.ear
@@ -89,6 +96,7 @@ checkstyle.xml
 .vscode/
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Windows системные
 Thumbs.db
 <<<<<<< HEAD
@@ -97,13 +105,18 @@ Thumbs.db
 =======
 >>>>>>> dfb8514 (Исправление ошибок.)
 =======
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 # Eclipse
 .settings/
 *.launch
 *.metadata/
 *.classpath
 *.project
+<<<<<<< HEAD
 >>>>>>> df05cae (Update .gitignore to exclude IDE and build files)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 
 # =========================
 # Системные файлы
@@ -135,6 +148,7 @@ mvnw
 mvnw.cmd
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 .idea/
 <<<<<<< HEAD
@@ -150,6 +164,8 @@ mvnw.cmd
 =======
 >>>>>>> dfb8514 (Исправление ошибок.)
 =======
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 # Gradle
 .gradle/
 build/
@@ -161,4 +177,7 @@ build/
 *.bak
 *.swp
 *.swo
+<<<<<<< HEAD
 >>>>>>> df05cae (Update .gitignore to exclude IDE and build files)
+=======
+>>>>>>> 173cf76 (Update .gitignore)

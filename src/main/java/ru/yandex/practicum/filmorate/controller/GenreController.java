@@ -4,12 +4,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 =======
 >>>>>>> 806c8cf (Добавление DAO для жанров и рейтига)
 =======
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
+>>>>>>> 173cf76 (Update .gitignore)
 import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.storage.dao.GenreDbStorage;
 
@@ -40,6 +44,7 @@ public class GenreController {
         return genreStorage.getGenreById(id)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .orElseThrow(() -> new NotFoundException("Жанр", id));
 =======
                 .orElseThrow(() -> new IllegalArgumentException("Жанр с ID " + id + " не найден"));
@@ -47,5 +52,8 @@ public class GenreController {
 =======
                 .orElseThrow(() -> new NotFoundException("Жанр", id));
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+                .orElseThrow(() -> new NotFoundException("Жанр", id));
+>>>>>>> 173cf76 (Update .gitignore)
     }
 }

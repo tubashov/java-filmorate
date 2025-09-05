@@ -4,6 +4,9 @@ import org.springframework.jdbc.core.RowMapper;
 import ru.yandex.practicum.filmorate.model.Film;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 import ru.yandex.practicum.filmorate.model.Mpa;
 
 import java.sql.Date;
@@ -33,6 +36,7 @@ public class FilmRowMapper implements RowMapper<Film> {
 
         film.setGenres(new LinkedHashSet<>()); // Чтобы не было null
         return film;
+<<<<<<< HEAD
 =======
 =======
 import ru.yandex.practicum.filmorate.model.Mpa;
@@ -84,5 +88,7 @@ public class FilmRowMapper implements RowMapper<Film> {
         film.setGenres(new LinkedHashSet<>()); // Чтобы не было null
         return film;
 >>>>>>> b988486 (Исправление ошибок)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     }
 }

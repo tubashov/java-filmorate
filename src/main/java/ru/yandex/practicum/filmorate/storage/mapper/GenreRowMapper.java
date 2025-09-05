@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Маппер для преобразования строки таблицы genres в объект Genre.
 =======
 /**
@@ -17,6 +18,9 @@ import java.sql.SQLException;
 =======
 // Маппер для преобразования строки таблицы genres в объект Genre.
 >>>>>>> 044f79a (Исправление ошибок.)
+=======
+// Маппер для преобразования строки таблицы genres в объект Genre.
+>>>>>>> 173cf76 (Update .gitignore)
 public class GenreRowMapper implements RowMapper<Genre> {
     @Override
     public Genre mapRow(ResultSet rs, int rowNum) throws SQLException {

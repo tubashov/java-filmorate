@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.RowMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ru.yandex.practicum.filmorate.model.Mpa;
 =======
 import ru.yandex.practicum.filmorate.model.MpaRating;
@@ -14,16 +15,23 @@ import ru.yandex.practicum.filmorate.dto.MpaDto;
 =======
 import ru.yandex.practicum.filmorate.model.Mpa;
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
+=======
+import ru.yandex.practicum.filmorate.model.Mpa;
+>>>>>>> 173cf76 (Update .gitignore)
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 public class MpaRowMapper implements RowMapper<Mpa> {
     @Override
     public Mpa mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Mpa(rs.getInt("id"), rs.getString("name"));
+<<<<<<< HEAD
 =======
 /**
  * Маппер для таблицы mpa_rating -> MpaDto
@@ -55,5 +63,7 @@ public class MpaRowMapper implements RowMapper<Mpa> {
     public Mpa mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Mpa(rs.getInt("id"), rs.getString("name"));
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     }
 }

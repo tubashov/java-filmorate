@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.storage.dao;
 import lombok.RequiredArgsConstructor;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.filmorate.model.Mpa;
@@ -23,12 +24,20 @@ import ru.yandex.practicum.filmorate.storage.mapper.MpaRowMapper;
 =======
 import ru.yandex.practicum.filmorate.model.Mpa;
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
+=======
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+import ru.yandex.practicum.filmorate.model.Mpa;
+>>>>>>> 173cf76 (Update .gitignore)
 
 import java.util.List;
 import java.util.Optional;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 @Repository
 @RequiredArgsConstructor
 public class MpaDbStorage {
@@ -46,6 +55,7 @@ public class MpaDbStorage {
     public List<Mpa> getAllMpa() {
         String sql = "SELECT id, name FROM mpa_rating ORDER BY id";
         return jdbcTemplate.query(sql, (rs, rn) -> new Mpa(rs.getInt("id"), rs.getString("name")));
+<<<<<<< HEAD
 =======
 /**
  * DAO-слой для работы с таблицей mpa.
@@ -101,4 +111,7 @@ public class MpaDbStorage {
     }
 =======
 >>>>>>> 044f79a (Исправление ошибок.)
+=======
+    }
+>>>>>>> 173cf76 (Update .gitignore)
 }

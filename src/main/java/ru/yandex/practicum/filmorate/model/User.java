@@ -36,6 +36,7 @@ public class User {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Map с ID других пользователей и статусом дружбы
     @Builder.Default
     private Map<Integer, FriendshipStatus> friends = new HashMap<>();
@@ -60,4 +61,9 @@ public class User {
     @Builder.Default
     private Set<Integer> friends = new HashSet<>();
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+    // Односторонняя дружба
+    @Builder.Default
+    private Set<Integer> friends = new HashSet<>();
+>>>>>>> 173cf76 (Update .gitignore)
 }

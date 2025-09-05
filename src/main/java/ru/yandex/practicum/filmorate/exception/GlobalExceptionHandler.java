@@ -14,6 +14,7 @@ import java.util.Map;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 @RestControllerAdvice // Глобальный обработчик исключений для всех контроллеров
 public class GlobalExceptionHandler {
 
@@ -28,15 +29,21 @@ public class GlobalExceptionHandler {
 >>>>>>> 39cd978 (Добавление логирония в класс GlobalExceptionHandler.)
 =======
 =======
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 /**
  * Глобальный обработчик исключений.
  */
 @Slf4j
+<<<<<<< HEAD
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     @ExceptionHandler(MethodArgumentNotValidException.class) // Ошибки валидации @Valid (тело запроса)
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
@@ -52,6 +59,8 @@ public class GlobalExceptionHandler {
         log.warn("Ошибка валидации тела запроса: {}", errors);
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 =======
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -62,7 +71,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(errors);
+<<<<<<< HEAD
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     }
 
     @ExceptionHandler(ConstraintViolationException.class) // Ошибки валидации параметров
@@ -75,6 +87,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     @ExceptionHandler(ValidationException.class) // Кастомная ошибка валидации
 <<<<<<< HEAD
@@ -90,6 +103,9 @@ public class GlobalExceptionHandler {
 =======
     @ExceptionHandler(ValidationException.class) // Кастомная валидация
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+    @ExceptionHandler(ValidationException.class) // Кастомная валидация
+>>>>>>> 173cf76 (Update .gitignore)
     public ResponseEntity<Map<String, String>> handleValidation(ValidationException ex) {
         //log.warn("ValidationException: {}", ex.getMessage());
         return ResponseEntity
@@ -97,6 +113,7 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", ex.getMessage()));
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -116,11 +133,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleNotFound(NotFoundException ex) {
         log.warn("NotFoundException: {}", ex.getMessage());
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
+=======
+    @ExceptionHandler(NotFoundException.class) // Ошибка "не найдено"
+    public ResponseEntity<Map<String, String>> handleNotFound(NotFoundException ex) {
+        log.warn("NotFoundException: {}", ex.getMessage());
+>>>>>>> 173cf76 (Update .gitignore)
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(Map.of("error", ex.getMessage()));
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -147,6 +170,8 @@ public class GlobalExceptionHandler {
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 =======
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleUserNotFound(UserNotFoundException ex) {
         //log.warn("UserNotFoundException: {}", ex.getMessage());
@@ -160,7 +185,10 @@ public class GlobalExceptionHandler {
         log.error("Необработанная ошибка: ", ex);
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
+<<<<<<< HEAD
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
                 .body(Map.of("error", ex.getMessage()));
     }
 }

@@ -23,6 +23,7 @@ public class UserController {
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
         }
@@ -46,6 +47,9 @@ public class UserController {
 =======
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(user));
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUser(user));
+>>>>>>> 173cf76 (Update .gitignore)
     }
 
     @GetMapping
@@ -54,6 +58,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+<<<<<<< HEAD
 <<<<<<< HEAD
     public ResponseEntity<User> getUserById(@PathVariable int id) {
 <<<<<<< HEAD
@@ -105,6 +110,10 @@ public class UserController {
 =======
         return ResponseEntity.ok(userService.findUserById(id));
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+    public ResponseEntity<User> getUserById(@PathVariable Integer id) {
+        return ResponseEntity.ok(userService.findUserById(id));
+>>>>>>> 173cf76 (Update .gitignore)
     }
 
     @PutMapping

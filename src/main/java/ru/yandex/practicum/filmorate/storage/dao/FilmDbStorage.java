@@ -3,12 +3,18 @@ package ru.yandex.practicum.filmorate.storage.dao;
 import lombok.RequiredArgsConstructor;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
 import ru.yandex.practicum.filmorate.model.Mpa;
@@ -22,6 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
+<<<<<<< HEAD
 =======
 =======
 import org.springframework.dao.DataIntegrityViolationException;
@@ -52,6 +59,8 @@ import java.util.stream.Collectors;
 =======
 @Repository
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 @RequiredArgsConstructor
 public class FilmDbStorage implements FilmStorage {
 
@@ -61,8 +70,11 @@ public class FilmDbStorage implements FilmStorage {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 044f79a (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 
     @Override
     public Film addFilm(Film film) {
@@ -85,6 +97,7 @@ public class FilmDbStorage implements FilmStorage {
         saveGenresForFilm(film);
 
         return getFilmById(filmId).orElseThrow();
+<<<<<<< HEAD
 =======
     private final FilmMapper filmMapper = new FilmMapper();
 =======
@@ -131,10 +144,13 @@ public class FilmDbStorage implements FilmStorage {
 
         return getFilmById(filmId).orElseThrow();
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     }
 
     @Override
     public Film updateFilm(Film film) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -152,6 +168,10 @@ public class FilmDbStorage implements FilmStorage {
         String sql = "UPDATE films SET name=?, description=?, release_date=?, duration=?, mpa_rating_id=? WHERE id=?";
         jdbcTemplate.update(sql,
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+        String sql = "UPDATE films SET name=?, description=?, release_date=?, duration=?, mpa_rating_id=? WHERE id=?";
+        jdbcTemplate.update(sql,
+>>>>>>> 173cf76 (Update .gitignore)
                 film.getName(),
                 film.getDescription(),
                 Date.valueOf(film.getReleaseDate()),
@@ -159,8 +179,11 @@ public class FilmDbStorage implements FilmStorage {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
                 film.getMpa() != null ? film.getMpa().getId() : film.getMpaId(),
                 film.getId());
 
@@ -169,6 +192,7 @@ public class FilmDbStorage implements FilmStorage {
 
         return getFilmById(film.getId())
                 .orElseThrow(() -> new RuntimeException("Film not found after update"));
+<<<<<<< HEAD
 =======
         jdbcTemplate.update("UPDATE films SET name=?, description=?, release_date=?, duration=?, mpa_rating=? WHERE id=?",
                 film.getName(), film.getDescription(), film.getReleaseDate(), film.getDuration(), film.getMpa().name(), film.getId());
@@ -193,10 +217,13 @@ public class FilmDbStorage implements FilmStorage {
         return getFilmById(film.getId())
                 .orElseThrow(() -> new RuntimeException("Film not found after update"));
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     }
 
     @Override
     public void removeFilm(int filmId) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -216,6 +243,11 @@ public class FilmDbStorage implements FilmStorage {
         jdbcTemplate.update("DELETE FROM likes WHERE film_id=?", filmId);
         jdbcTemplate.update("DELETE FROM films WHERE id=?", filmId);
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+        jdbcTemplate.update("DELETE FROM film_genres WHERE film_id=?", filmId);
+        jdbcTemplate.update("DELETE FROM likes WHERE film_id=?", filmId);
+        jdbcTemplate.update("DELETE FROM films WHERE id=?", filmId);
+>>>>>>> 173cf76 (Update .gitignore)
     }
 
     @Override
@@ -224,8 +256,11 @@ public class FilmDbStorage implements FilmStorage {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
         String sql = """
                 SELECT f.id, f.name, f.description, f.release_date, f.duration,
                        m.id AS mpa_id, m.name AS mpa_name
@@ -234,12 +269,15 @@ public class FilmDbStorage implements FilmStorage {
                 WHERE f.id = ?
                 """;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         String sql = "SELECT f.id, f.name, f.description, f.release_date, f.duration, f.mpa_rating_id " +
                 "FROM films f WHERE f.id=?";
 >>>>>>> 284ec40 (Исправление ошибок.)
 =======
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
         List<Film> films = jdbcTemplate.query(sql, this::mapRowToFilm, id);
 
         if (films.isEmpty()) return Optional.empty();
@@ -248,13 +286,17 @@ public class FilmDbStorage implements FilmStorage {
         film.setGenres(loadGenresForFilm(film.getId()));
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 
         // load likes for this film
         film.setLikes(loadLikesForFilm(film.getId()));
         film.setLikesCount(film.getLikes().size());
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
         List<Film> films = jdbcTemplate.query("SELECT * FROM films WHERE id=?", filmMapper, id);
@@ -272,6 +314,9 @@ public class FilmDbStorage implements FilmStorage {
 =======
         return Optional.of(film);
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+        return Optional.of(film);
+>>>>>>> 173cf76 (Update .gitignore)
     }
 
     @Override
@@ -280,8 +325,11 @@ public class FilmDbStorage implements FilmStorage {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
         String sql = """
                 SELECT f.id, f.name, f.description, f.release_date, f.duration,
                        m.id AS mpa_id, m.name AS mpa_name
@@ -290,6 +338,9 @@ public class FilmDbStorage implements FilmStorage {
                 ORDER BY f.id
                 """;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 173cf76 (Update .gitignore)
         List<Film> films = jdbcTemplate.query(sql, this::mapRowToFilm);
 
         if (!films.isEmpty()) {
@@ -346,6 +397,9 @@ public class FilmDbStorage implements FilmStorage {
 
     // Row mapping
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     private Film mapRowToFilm(ResultSet rs, int rowNum) throws SQLException {
         Film film = new Film();
 
@@ -454,6 +508,7 @@ public class FilmDbStorage implements FilmStorage {
     @Override
     public void removeLike(int filmId, int userId) {
         jdbcTemplate.update("DELETE FROM likes WHERE film_id = ? AND user_id = ?", filmId, userId);
+<<<<<<< HEAD
 =======
         List<Film> films = jdbcTemplate.query("SELECT * FROM films", filmMapper);
         films.forEach(f -> {
@@ -655,5 +710,7 @@ public class FilmDbStorage implements FilmStorage {
     @Override
     public void removeLike(int filmId, int userId) {
         jdbcTemplate.update("DELETE FROM likes WHERE film_id = ? AND user_id = ?", filmId, userId);
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     }
 }

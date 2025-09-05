@@ -8,6 +8,7 @@ import ru.yandex.practicum.filmorate.exception.NotFoundException;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 =======
 >>>>>>> 2cca4d8 (Исправление ошибок.)
@@ -22,6 +23,8 @@ import ru.yandex.practicum.filmorate.model.FriendshipStatus;
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 =======
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -36,6 +39,7 @@ public class UserService {
     private final UserStorage userStorage;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public UserService(UserStorage userStorage) {
         this.userStorage = userStorage;
     }
@@ -48,11 +52,14 @@ public class UserService {
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 =======
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     public User addUser(User user) {
         return userStorage.addUser(user);
     }
 
     public User updateUser(User user) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         if (userStorage.findUserById(user.getId()).isEmpty()) {
@@ -96,6 +103,11 @@ public class UserService {
         if (user.getId() == null) {
             throw new IllegalArgumentException("ID пользователя не может быть null при обновлении");
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+        // Проверка: передан ли ID
+        if (user.getId() == null) {
+            throw new IllegalArgumentException("ID пользователя не может быть null при обновлении");
+>>>>>>> 173cf76 (Update .gitignore)
         }
 
         // Проверка существования пользователя
@@ -111,6 +123,7 @@ public class UserService {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         return userStorage.updateUser(user);
     }
@@ -119,6 +132,8 @@ public class UserService {
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 =======
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     public List<User> getCommonFriends(int userId, int otherId) {
         User user = findUserById(userId);
         User other = findUserById(otherId);
@@ -139,11 +154,15 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("Пользователь с id " + id + " не найден"));
     }
 
+<<<<<<< HEAD
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     public List<User> getAllUsers() {
         return userStorage.getAllUsers();
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -394,6 +413,8 @@ public class UserService {
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
                 .collect(Collectors.toList());
 =======
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     public void addFriend(int userId, int friendId) {
         // проверка существования пользователей
         findUserById(userId);
@@ -418,6 +439,9 @@ public class UserService {
         return userStorage.getAllUsers().stream()
                 .filter(u -> user.getFriends().contains(u.getId()))
                 .toList();
+<<<<<<< HEAD
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
     }
 }

@@ -33,6 +33,7 @@ public class Film {
 
     private Set<Integer> likes = new HashSet<>();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -76,6 +77,13 @@ public class Film {
     private Mpa mpa;       // теперь объект
     private Integer mpaId; // временное поле для приёма "mpaId" в JSON
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
+=======
+    private Set<Genre> genres = new HashSet<>();
+    private int likesCount = 0;
+
+    private Mpa mpa;       // теперь объект
+    private Integer mpaId; // временное поле для приёма "mpaId" в JSON
+>>>>>>> 173cf76 (Update .gitignore)
 
     @JsonSetter("mpaId")
     public void setMpaId(Integer mpaId) {
