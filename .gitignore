@@ -1,38 +1,8 @@
 # Компиляционные артефакты
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 .github/workflows/api-tests.yml
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-.github/workflows/api-tests.yml
->>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 checkstyle.xml
 *.class
 *.jar
-=======
-=======
-.github/workflows/api-tests.yml
->>>>>>> d8ad679 (Исправление .gitignore.)
-=======
-*.class
-*.jar
-*.DS_Store
-checkstyle.xml
->>>>>>> c277ec0 (Удалены запрещённые файлы из PR)
-=======
-checkstyle.xml
-*.class
-*.jar
-<<<<<<< HEAD
-*.DS_Store
->>>>>>> 100ff0d (Сохраняем текущие изменения перед очисткой ветки)
-**/*.class
-**/*.jar
->>>>>>> 924e392 (Удалил папку .idea из репозитория и добавил в .gitignore)
-=======
->>>>>>> 976e23f (Исправление ошибок.)
 *.war
 *.nar
 *.ear
@@ -64,28 +34,8 @@ db/*
 
 # Windows системные
 Thumbs.db
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> dfb8514 (Исправление ошибок.)
 
 # Maven Wrapper (не добавляем в PR)
 .mvn/
 mvnw
 mvnw.cmd
-<<<<<<< HEAD
-=======
-.idea/
-<<<<<<< HEAD
->>>>>>> 8982499 (Добавлен .gitignore для игнорирования IDE файлов)
-=======
-.idea/
->>>>>>> 0ce43fc (Ignore .idea/ directory to prevent CI errors)
-=======
-.idea/
-.idea/
-.idea/
->>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
-=======
->>>>>>> dfb8514 (Исправление ошибок.)

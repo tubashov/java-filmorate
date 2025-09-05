@@ -18,6 +18,7 @@ services:
 volumes:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   postgres_data:                   # Логический том
 <<<<<<< HEAD
 =======
@@ -29,3 +30,6 @@ volumes:
 >>>>>>> 27d2e25 (Create compose.yaml)
 =======
 >>>>>>> 073a54e (Добавление зависимостей com.h2database.h2, org.springframework.boot.spring-boot-starter-jdbc.)
+=======
+  postgres_data:                   # Логический том
+>>>>>>> 173cf76 (Update .gitignore)
