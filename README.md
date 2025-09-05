@@ -11,6 +11,9 @@ Template repository for Filmorate project.
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 Полный файл диаграммы в формате dbml: [filmorate.dbml](docs/filmorate.dbml)
 
 ### Пояснения
@@ -65,8 +68,11 @@ WHERE fs1.user_id = 1
   AND fs2.status = 'CONFIRMED';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> dfb8514 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 ```
 
 # Filmorate
@@ -75,10 +81,13 @@ WHERE fs1.user_id = 1
 ![Схема БД](docs/schema.png)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 =======
 >>>>>>> dfb8514 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 Полный файл диаграммы в формате dbml: [filmorate.dbml](docs/filmorate.dbml)
 
 ### Пояснения
@@ -86,10 +95,13 @@ WHERE fs1.user_id = 1
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
 =======
 >>>>>>> dfb8514 (Исправление ошибок.)
+=======
+>>>>>>> 173cf76 (Update .gitignore)
 - Таблица `films` хранит информацию о фильмах и содержит ссылку на рейтинг MPA.
 - Таблица `genres` и промежуточная таблица `film_genres` реализуют связь "многие-ко-многим".
 - Таблица `likes` позволяет учитывать лайки фильмов пользователями.
@@ -138,6 +150,7 @@ WHERE fs1.user_id = 1
   AND fs2.user_id = 2
   AND fs1.status = 'CONFIRMED'
   AND fs2.status = 'CONFIRMED';
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -218,3 +231,6 @@ WHERE fs1.user_id = 1
 =======
 ```
 >>>>>>> dfb8514 (Исправление ошибок.)
+=======
+```
+>>>>>>> 173cf76 (Update .gitignore)

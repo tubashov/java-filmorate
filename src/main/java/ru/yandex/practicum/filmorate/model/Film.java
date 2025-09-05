@@ -32,53 +32,16 @@ public class Film {
     private int duration;
 
     private Set<Integer> likes = new HashSet<>();
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
-    // Жанры фильма (может быть несколько)
-    private Set<String> genres = new HashSet<>();
-=======
-    private Set<Genre> genres = new HashSet<>();
->>>>>>> e144011 (Исправление ошибок. Добавление классов GenreDto, MpaDto)
-
-    private MpaRating mpa = MpaRating.NR;
-<<<<<<< HEAD
-=======
-    // 🎬 Новый атрибут — жанры фильма (может быть несколько)
-    private List<Genre> genres;
-
-    // 🔞 Новый атрибут — возрастной рейтинг MPA (одно значение)
-    private MpaRating mpa;
->>>>>>> 9bcac66 (Добавление жанра и возрастного ограничения.)
-=======
-    // Жанры фильма (может быть несколько)
-    private Set<String> genres = new HashSet<>();
-
-    // Возрастной рейтинг MPA (одно значение)
-    private MpaRating mpa = MpaRating.NR;
->>>>>>> 7b18731 (Добавление жанра жильма, статуса заявки в друзья, возрастного ограничения.)
-=======
->>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
-=======
     private Set<Genre> genres = new HashSet<>();
     private int likesCount = 0;
 
-<<<<<<< HEAD
-    private MpaRating mpa;   // enum
-    private Integer mpaId;   // временное поле для десериализации
->>>>>>> 284ec40 (Исправление ошибок.)
-=======
     private Mpa mpa;       // теперь объект
     private Integer mpaId; // временное поле для приёма "mpaId" в JSON
->>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
 
+    // При JSON-входе поле "mpaId": 4 будет корректно установлено
     @JsonSetter("mpaId")
     public void setMpaId(Integer mpaId) {
         this.mpaId = mpaId;
     }
+    // При JSON-входе поле "mpa": { "id": 4, "name": "R" } Jackson сам вызовет setMpa(Mpa)
 }

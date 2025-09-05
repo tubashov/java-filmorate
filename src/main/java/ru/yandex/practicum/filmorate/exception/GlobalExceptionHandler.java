@@ -12,46 +12,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-@RestControllerAdvice // Глобальный обработчик исключений для всех контроллеров
-public class GlobalExceptionHandler {
-
-<<<<<<< HEAD
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
-    @ExceptionHandler(MethodArgumentNotValidException.class) // Ошибки валидации @Valid (тело запроса)
-=======
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class); // Логгер SLF4J
-
-    @ExceptionHandler(MethodArgumentNotValidException.class) // Ошибки валидации @Valid
->>>>>>> 39cd978 (Добавление логирония в класс GlobalExceptionHandler.)
-=======
-=======
 /**
  * Глобальный обработчик исключений.
  */
 @Slf4j
->>>>>>> 284ec40 (Исправление ошибок.)
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
 
-<<<<<<< HEAD
-    @ExceptionHandler(MethodArgumentNotValidException.class) // Ошибки валидации @Valid (тело запроса)
->>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                errors.put(error.getField(), error.getDefaultMessage()));
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
-        log.warn("Ошибка валидации тела запроса: {}", errors);
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-=======
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -62,7 +30,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(errors);
->>>>>>> 284ec40 (Исправление ошибок.)
     }
 
     @ExceptionHandler(ConstraintViolationException.class) // Ошибки валидации параметров
@@ -75,21 +42,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
-<<<<<<< HEAD
-    @ExceptionHandler(ValidationException.class) // Кастомная ошибка валидации
-<<<<<<< HEAD
-=======
-        log.warn("Ошибка валидации: {}", errors); // Логируем поля с ошибками
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(ValidationException.class) // Кастомное исключение валидации
->>>>>>> 39cd978 (Добавление логирония в класс GlobalExceptionHandler.)
-=======
->>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
-=======
     @ExceptionHandler(ValidationException.class) // Кастомная валидация
->>>>>>> 284ec40 (Исправление ошибок.)
     public ResponseEntity<Map<String, String>> handleValidation(ValidationException ex) {
         //log.warn("ValidationException: {}", ex.getMessage());
         return ResponseEntity
@@ -97,56 +50,14 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", ex.getMessage()));
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    @ExceptionHandler(NotFoundException.class) // Универсальная ошибка "не найдено"
-=======
     @ExceptionHandler(NotFoundException.class) // Ошибка "не найдено"
->>>>>>> 284ec40 (Исправление ошибок.)
     public ResponseEntity<Map<String, String>> handleNotFound(NotFoundException ex) {
         log.warn("NotFoundException: {}", ex.getMessage());
-=======
-    @ExceptionHandler(FilmNotFoundException.class) // Фильм не найден
-    public ResponseEntity<Map<String, String>> handleFilmNotFound(FilmNotFoundException ex) {
-        log.warn("FilmNotFoundException: {}", ex.getMessage());
->>>>>>> 39cd978 (Добавление логирония в класс GlobalExceptionHandler.)
-=======
-    @ExceptionHandler(NotFoundException.class) // Универсальная ошибка "не найдено"
-    public ResponseEntity<Map<String, String>> handleNotFound(NotFoundException ex) {
-        log.warn("NotFoundException: {}", ex.getMessage());
->>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(Map.of("error", ex.getMessage()));
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    @ExceptionHandler(Exception.class) // Любая непредвиденная ошибка
-    public ResponseEntity<Map<String, String>> handleGeneralError(Exception ex) {
-        log.error("Необработанная ошибка: ", ex);
-=======
-    @ExceptionHandler(UserNotFoundException.class) // Пользователь не найден
-    public ResponseEntity<Map<String, String>> handleUserNotFound(UserNotFoundException ex) {
-        log.warn("UserNotFoundException: {}", ex.getMessage());
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(Map.of("error", ex.getMessage()));
-    }
-
-    @ExceptionHandler(Exception.class) // Непредвиденная ошибка
-    public ResponseEntity<Map<String, String>> handleGeneralError(Exception ex) {
-        log.error("Необработанная ошибка: ", ex); // Логируем полный стектрейс
->>>>>>> 39cd978 (Добавление логирония в класс GlobalExceptionHandler.)
-=======
-    @ExceptionHandler(Exception.class) // Любая непредвиденная ошибка
-    public ResponseEntity<Map<String, String>> handleGeneralError(Exception ex) {
-        log.error("Необработанная ошибка: ", ex);
->>>>>>> a98b57d (Migrate clean changes from add-friends-likes excluding ignored/binary files)
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-=======
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleUserNotFound(UserNotFoundException ex) {
         //log.warn("UserNotFoundException: {}", ex.getMessage());
@@ -160,7 +71,6 @@ public class GlobalExceptionHandler {
         log.error("Необработанная ошибка: ", ex);
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
->>>>>>> 284ec40 (Исправление ошибок.)
                 .body(Map.of("error", ex.getMessage()));
     }
 }
