@@ -1,3 +1,4 @@
+// src/main/java/ru/yandex/practicum/filmorate/storage/dao/MpaDbStorage.java
 package ru.yandex.practicum.filmorate.storage.dao;
 
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 >>>>>>> 284ec40 (Исправление ошибок.)
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+<<<<<<< HEAD
 import ru.yandex.practicum.filmorate.dto.MpaDto;
 import ru.yandex.practicum.filmorate.model.MpaRating;
 <<<<<<< HEAD
@@ -19,9 +21,10 @@ import ru.yandex.practicum.filmorate.storage.mapper.MpaRowMapper;
 >>>>>>> 806c8cf (Добавление DAO для жанров и рейтига)
 =======
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+import ru.yandex.practicum.filmorate.model.Mpa;
+>>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,16 +57,18 @@ public class MpaDbStorage {
 @Repository
 @RequiredArgsConstructor
 public class MpaDbStorage {
+
     private final JdbcTemplate jdbcTemplate;
 
-    // Получение всех рейтингов MPA в правильном порядке
-    public List<MpaDto> getAllMpa() {
-        return Arrays.stream(MpaRating.values())
-                .map(r -> new MpaDto(r.getId(), r.getName()))
-                .sorted(Comparator.comparingInt(MpaDto::getId))
-                .toList();
+    public Optional<Mpa> getMpaById(int id) {
+        String sql = "SELECT id, name FROM mpa_rating WHERE id = ?";
+        List<Mpa> result = jdbcTemplate.query(sql,
+                (rs, rn) -> new Mpa(rs.getInt("id"), rs.getString("name")),
+                id);
+        return result.stream().findFirst();
     }
 
+<<<<<<< HEAD
     // Получение рейтинга MPA по ID
 <<<<<<< HEAD
     public Optional<MpaRating> getMpaById(int id) {
@@ -77,17 +82,21 @@ public class MpaDbStorage {
                 .filter(r -> r.getId() == id)
                 .map(r -> new MpaDto(r.getId(), r.getName()))
                 .findFirst();
+=======
+    public List<Mpa> getAllMpa() {
+        String sql = "SELECT id, name FROM mpa_rating ORDER BY id";
+        return jdbcTemplate.query(sql, (rs, rn) -> new Mpa(rs.getInt("id"), rs.getString("name")));
+>>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
     }
 
-    // Проверка существования рейтинга
-//    public boolean existsById(int id) {
-//        String sql = "SELECT COUNT(*) FROM mpa_rating WHERE id = ?";
-//        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
-//        return count != null && count > 0;
-//    }
-
     public boolean existsById(int id) {
+<<<<<<< HEAD
         return getMpaById(id).isPresent();
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+        String sql = "SELECT COUNT(*) FROM mpa_rating WHERE id = ?";
+        Integer cnt = jdbcTemplate.queryForObject(sql, Integer.class, id);
+        return cnt != null && cnt > 0;
+>>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
     }
 }

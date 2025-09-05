@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Mpa;
 =======
@@ -13,6 +14,10 @@ import ru.yandex.practicum.filmorate.model.MpaRating;
 import ru.yandex.practicum.filmorate.dto.MpaDto;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 >>>>>>> 284ec40 (Исправление ошибок.)
+=======
+import ru.yandex.practicum.filmorate.exception.NotFoundException;
+import ru.yandex.practicum.filmorate.model.Mpa;
+>>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
 import ru.yandex.practicum.filmorate.storage.dao.MpaDbStorage;
 
 import java.util.List;
@@ -52,12 +57,12 @@ public class MpaController {
 =======
 >>>>>>> 284ec40 (Исправление ошибок.)
     @GetMapping
-    public List<MpaDto> getAllMpa() {
+    public List<Mpa> getAllMpa() {
         return mpaStorage.getAllMpa();
     }
 
     @GetMapping("/{id}")
-    public MpaDto getMpaById(@PathVariable int id) {
+    public Mpa getMpaById(@PathVariable int id) {
         return mpaStorage.getMpaById(id)
 <<<<<<< HEAD
                 .orElseThrow(() -> new IllegalArgumentException("Рейтинг MPA с ID " + id + " не найден"));
