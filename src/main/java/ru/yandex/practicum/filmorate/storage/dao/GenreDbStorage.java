@@ -33,6 +33,7 @@ import ru.yandex.practicum.filmorate.model.Genre;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -94,5 +95,19 @@ public class GenreDbStorage {
 >>>>>>> 806c8cf (Добавление DAO для жанров и рейтига)
 =======
 >>>>>>> 284ec40 (Исправление ошибок.)
+    }
+    // Получение списка жанров по списку ID
+    public List<Genre> getGenresByIds(List<Integer> ids) {
+        if (ids.isEmpty()) {
+            return List.of();
+        }
+        String sql = String.format(
+                "SELECT id, name FROM genres WHERE id IN (%s)",
+                ids.stream().map(id -> "?").collect(Collectors.joining(","))
+        );
+
+        return jdbcTemplate.query(sql, ids.toArray(), (rs, rowNum) ->
+                new Genre(rs.getInt("id"), rs.getString("name"))
+        );
     }
 }

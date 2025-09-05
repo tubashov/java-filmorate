@@ -7,12 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Маппер для преобразования строки таблицы genres в объект Genre.
 =======
 /**
  * Маппер для преобразования строки таблицы genres в объект Genre.
  */
 >>>>>>> 806c8cf (Добавление DAO для жанров и рейтига)
+=======
+// Маппер для преобразования строки таблицы genres в объект Genre.
+>>>>>>> 044f79a (Исправление ошибок.)
 public class GenreRowMapper implements RowMapper<Genre> {
     @Override
     public Genre mapRow(ResultSet rs, int rowNum) throws SQLException {

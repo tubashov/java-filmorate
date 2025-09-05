@@ -13,6 +13,8 @@ import ru.yandex.practicum.filmorate.storage.dao.MpaDbStorage;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,19 +29,14 @@ public class FilmService {
         if (film.getLikes() == null) film.setLikes(new HashSet<>());
         if (film.getGenres() == null) film.setGenres(new HashSet<>());
 
+        // Получаем MPA
         Integer mpaId = (film.getMpa() != null && film.getMpa().getId() != null) ? film.getMpa().getId() : film.getMpaId();
-        if (mpaId == null || !mpaDbStorage.existsById(mpaId)) {
-            throw new NotFoundException("MPA Rating с ID " + mpaId + " не найден");
-        }
         Mpa mpa = mpaDbStorage.getMpaById(mpaId)
                 .orElseThrow(() -> new NotFoundException("MPA Rating с ID " + mpaId + " не найден"));
         film.setMpa(mpa);
 
-        for (Genre genre : film.getGenres()) {
-            if (!genreDbStorage.existsById(genre.getId())) {
-                throw new NotFoundException("Genre with ID " + genre.getId() + " not found");
-            }
-        }
+        // Проверка жанров одним запросом
+        validateGenres(film.getGenres());
 
         return filmStorage.addFilm(film);
     }
@@ -49,22 +46,30 @@ public class FilmService {
                 .orElseThrow(() -> new NotFoundException("Film with ID " + film.getId() + " not found"));
 
         Integer mpaId = (film.getMpa() != null && film.getMpa().getId() != null) ? film.getMpa().getId() : film.getMpaId();
-        if (mpaId == null || !mpaDbStorage.existsById(mpaId)) {
-            throw new NotFoundException("MPA rating is required");
-        }
         Mpa mpa = mpaDbStorage.getMpaById(mpaId)
                 .orElseThrow(() -> new NotFoundException("MPA Rating с ID " + mpaId + " не найден"));
         film.setMpa(mpa);
 
         if (film.getGenres() != null) {
-            for (Genre genre : film.getGenres()) {
-                if (!genreDbStorage.existsById(genre.getId())) {
-                    throw new NotFoundException("Genre with ID " + genre.getId() + " not found");
-                }
-            }
+            validateGenres(film.getGenres());
         }
 
         return filmStorage.updateFilm(film);
+    }
+
+    private void validateGenres(Set<Genre> genres) {
+        if (genres.isEmpty()) return;
+
+        List<Integer> genreIds = genres.stream()
+                .map(Genre::getId)
+                .collect(Collectors.toList());
+        List<Genre> existingGenres = genreDbStorage.getGenresByIds(genreIds);
+
+        if (existingGenres.size() != genreIds.size()) {
+            List<Integer> existingIds = existingGenres.stream().map(Genre::getId).toList();
+            genreIds.removeAll(existingIds);
+            throw new NotFoundException("Genres with IDs " + genreIds + " not found");
+        }
     }
 
     public Film getFilmById(int id) {
@@ -77,19 +82,20 @@ public class FilmService {
     }
 
     public void addLike(int filmId, int userId) {
-        // Проверяем существование
         getFilmById(filmId);
-        if (!userStorage.findUserById(userId).isPresent()) {
-            throw new NotFoundException("User with ID " + userId + " not found");
-        }
+
+        userStorage.findUserById(userId)
+                .orElseThrow(() -> new NotFoundException("User with ID " + userId + " not found"));
+
         filmStorage.addLike(filmId, userId);
     }
 
     public void removeLike(int filmId, int userId) {
         getFilmById(filmId);
-        if (!userStorage.findUserById(userId).isPresent()) {
-            throw new NotFoundException("User with ID " + userId + " not found");
-        }
+
+        userStorage.findUserById(userId)
+                .orElseThrow(() -> new NotFoundException("User with ID " + userId + " not found"));
+
         filmStorage.removeLike(filmId, userId);
     }
 

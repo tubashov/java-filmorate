@@ -48,5 +48,4 @@ public class GenreController {
                 .orElseThrow(() -> new NotFoundException("Жанр", id));
 >>>>>>> 284ec40 (Исправление ошибок.)
     }
-
 }

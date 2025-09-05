@@ -1,4 +1,3 @@
-// src/main/java/ru/yandex/practicum/filmorate/storage/dao/MpaDbStorage.java
 package ru.yandex.practicum.filmorate.storage.dao;
 
 import lombok.RequiredArgsConstructor;
@@ -88,6 +87,7 @@ public class MpaDbStorage {
         return jdbcTemplate.query(sql, (rs, rn) -> new Mpa(rs.getInt("id"), rs.getString("name")));
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
     }
+<<<<<<< HEAD
 
     public boolean existsById(int id) {
 <<<<<<< HEAD
@@ -99,4 +99,6 @@ public class MpaDbStorage {
         return cnt != null && cnt > 0;
 >>>>>>> 3fedeb9 (Изменения в классах Mpa, Film, MpaDbStorage, MpaController, MpaRowMapper, FilmDbStorage, FilmStorage, FilmServise, FilmRowMapper)
     }
+=======
+>>>>>>> 044f79a (Исправление ошибок.)
 }
