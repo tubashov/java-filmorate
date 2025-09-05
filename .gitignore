@@ -55,6 +55,7 @@ checkstyle.xml
 hs_err_pid*
 out/
 target/
+
 # =========================
 # Статический анализ
 # =========================
@@ -65,6 +66,12 @@ checkstyle.xml
 # =========================
 # IntelliJ IDEA
 .idea/
+.idea/.gitignore
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/vcs.xml
 *.iws
 *.iml
 *.ipr
