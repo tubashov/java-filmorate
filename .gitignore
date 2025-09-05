@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 .github/workflows/api-tests.yml
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -12,6 +13,9 @@
 =======
 #.github/workflows/api-tests.yml
 >>>>>>> de50bb6 (Редактирование .gitigmore + api-test.yml)
+=======
+
+>>>>>>> 5470a70 (Update .gitignore to exclude IDE and build files)
 checkstyle.xml
 *.class
 *.jar
