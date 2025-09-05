@@ -1,4 +1,3 @@
-// src/main/java/ru/yandex/practicum/filmorate/storage/dao/MpaDbStorage.java
 package ru.yandex.practicum.filmorate.storage.dao;
 
 import lombok.RequiredArgsConstructor;
@@ -26,11 +25,5 @@ public class MpaDbStorage {
     public List<Mpa> getAllMpa() {
         String sql = "SELECT id, name FROM mpa_rating ORDER BY id";
         return jdbcTemplate.query(sql, (rs, rn) -> new Mpa(rs.getInt("id"), rs.getString("name")));
-    }
-
-    public boolean existsById(int id) {
-        String sql = "SELECT COUNT(*) FROM mpa_rating WHERE id = ?";
-        Integer cnt = jdbcTemplate.queryForObject(sql, Integer.class, id);
-        return cnt != null && cnt > 0;
     }
 }
