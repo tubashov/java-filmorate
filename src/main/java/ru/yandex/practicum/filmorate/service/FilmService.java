@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.Genre;
-import ru.yandex.practicum.filmorate.model.MpaRating;
+import ru.yandex.practicum.filmorate.model.Mpa;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 import ru.yandex.practicum.filmorate.storage.dao.GenreDbStorage;
@@ -27,10 +27,13 @@ public class FilmService {
         if (film.getLikes() == null) film.setLikes(new HashSet<>());
         if (film.getGenres() == null) film.setGenres(new HashSet<>());
 
-        if (film.getMpaId() == null || !mpaDbStorage.existsById(film.getMpaId())) {
-            throw new NotFoundException("MPA Rating с ID " + film.getMpaId() + " не найден");
+        Integer mpaId = (film.getMpa() != null && film.getMpa().getId() != null) ? film.getMpa().getId() : film.getMpaId();
+        if (mpaId == null || !mpaDbStorage.existsById(mpaId)) {
+            throw new NotFoundException("MPA Rating с ID " + mpaId + " не найден");
         }
-        film.setMpa(MpaRating.fromId(film.getMpaId()));
+        Mpa mpa = mpaDbStorage.getMpaById(mpaId)
+                .orElseThrow(() -> new NotFoundException("MPA Rating с ID " + mpaId + " не найден"));
+        film.setMpa(mpa);
 
         for (Genre genre : film.getGenres()) {
             if (!genreDbStorage.existsById(genre.getId())) {
@@ -45,10 +48,13 @@ public class FilmService {
         filmStorage.getFilmById(film.getId())
                 .orElseThrow(() -> new NotFoundException("Film with ID " + film.getId() + " not found"));
 
-        if (film.getMpaId() == null || !mpaDbStorage.existsById(film.getMpaId())) {
+        Integer mpaId = (film.getMpa() != null && film.getMpa().getId() != null) ? film.getMpa().getId() : film.getMpaId();
+        if (mpaId == null || !mpaDbStorage.existsById(mpaId)) {
             throw new NotFoundException("MPA rating is required");
         }
-        film.setMpa(MpaRating.fromId(film.getMpaId()));
+        Mpa mpa = mpaDbStorage.getMpaById(mpaId)
+                .orElseThrow(() -> new NotFoundException("MPA Rating с ID " + mpaId + " не найден"));
+        film.setMpa(mpa);
 
         if (film.getGenres() != null) {
             for (Genre genre : film.getGenres()) {
@@ -71,27 +77,20 @@ public class FilmService {
     }
 
     public void addLike(int filmId, int userId) {
-        Film film = getFilmById(filmId);
+        // Проверяем существование
+        getFilmById(filmId);
         if (!userStorage.findUserById(userId).isPresent()) {
             throw new NotFoundException("User with ID " + userId + " not found");
         }
-
-        if (film.getLikes().add(userId)) {
-            film.setLikesCount(film.getLikes().size());
-            filmStorage.updateFilm(film);
-        }
+        filmStorage.addLike(filmId, userId);
     }
 
     public void removeLike(int filmId, int userId) {
-        Film film = getFilmById(filmId);
+        getFilmById(filmId);
         if (!userStorage.findUserById(userId).isPresent()) {
             throw new NotFoundException("User with ID " + userId + " not found");
         }
-
-        if (film.getLikes().remove(userId)) {
-            film.setLikesCount(film.getLikes().size());
-            filmStorage.updateFilm(film);
-        }
+        filmStorage.removeLike(filmId, userId);
     }
 
     public List<Film> getTopPopularFilms(int count) {

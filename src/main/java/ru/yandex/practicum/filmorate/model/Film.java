@@ -4,9 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-import ru.yandex.practicum.filmorate.dto.MpaDto;
 import ru.yandex.practicum.filmorate.validation.ReleaseDateConstraint;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.time.LocalDate;
@@ -37,22 +35,13 @@ public class Film {
     private Set<Genre> genres = new HashSet<>();
     private int likesCount = 0;
 
-    private MpaRating mpa;   // enum
-    private Integer mpaId;   // временное поле для десериализации
+    private Mpa mpa;       // теперь объект
+    private Integer mpaId; // временное поле для приёма "mpaId" в JSON
 
-    @JsonGetter("mpa")
-    public MpaDto getMpaDto() {
-        if (mpa != null) {
-            return new MpaDto(mpa.getId(), mpa.getName());
-        }
-        return null;
+    // При JSON-входе поле "mpaId": 4 будет корректно установлено
+    @JsonSetter("mpaId")
+    public void setMpaId(Integer mpaId) {
+        this.mpaId = mpaId;
     }
-
-    @JsonSetter("mpa")
-    public void setMpaDto(MpaDto mpaDto) {
-        if (mpaDto != null && mpaDto.getId() != null) {
-            this.mpaId = mpaDto.getId(); // временно сохраняем ID
-            this.mpa = null;             // enum пока не устанавливаем
-        }
-    }
+    // При JSON-входе поле "mpa": { "id": 4, "name": "R" } Jackson сам вызовет setMpa(Mpa)
 }
