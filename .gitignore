@@ -1,5 +1,5 @@
 # Компиляционные артефакты
-.github/workflows/api-tests.yml
+
 checkstyle.xml
 
 *.class
@@ -13,6 +13,8 @@ checkstyle.xml
 hs_err_pid*
 out/
 target/
+*.swp
+*.idea_modules/
 
 # IntelliJ IDEA
 .idea/
@@ -25,9 +27,12 @@ target/
 
 # Логи
 *.log
+spring.log
 
 # Базы данных
 *.db
+*.mv.db
+*.h2.db
 db/*
 
 # VSCode
