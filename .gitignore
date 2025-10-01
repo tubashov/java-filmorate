@@ -1,6 +1,5 @@
 # Компиляционные артефакты
 
-checkstyle.xml
 
 *.class
 *.jar
