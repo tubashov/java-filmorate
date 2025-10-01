@@ -5,6 +5,7 @@ Template repository for Filmorate project.
 
 ## Схема базы данных
 ![Схема БД](docs/schema.png)
+
 Полный файл диаграммы в формате dbml: [filmorate.dbml](docs/filmorate.dbml)
 
 ### Пояснения
