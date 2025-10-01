@@ -6,6 +6,7 @@ Template repository for Filmorate project.
 ## Схема базы данных
 ![Схема БД](docs/schema.png)
 
+
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -15,6 +16,7 @@ Template repository for Filmorate project.
 =======
 >>>>>>> 173cf76 (Update .gitignore)
 Полный файл диаграммы в формате dbml: [filmorate.dbml](docs/filmorate.dbml)
+
 
 ### Пояснения
 - Таблица `users` хранит информацию о пользователях.
