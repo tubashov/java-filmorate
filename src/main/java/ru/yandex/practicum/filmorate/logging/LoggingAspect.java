@@ -27,8 +27,7 @@ public class LoggingAspect {
 //            throw ex; // обязательно пробрасываем дальше
 //        }
 //    }
-//
-//    // Отдельный advice только для ошибок
+////    // Отдельный advice только для ошибок
 //    @AfterThrowing(pointcut = "execution(* ru.yandex.practicum.filmorate..*(..))", throwing = "ex")
 //    public void logException(JoinPoint joinPoint, Throwable ex) {
 //        String methodName = joinPoint.getSignature().toShortString();
