@@ -1,4 +1,4 @@
--- Таблица пользователей
+    -- Таблица пользователей
 CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255),
