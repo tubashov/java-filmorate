@@ -16,5 +16,11 @@ public interface FilmStorage {
     Optional<Film> getFilmById(int id);
 
     List<Film> getAllFilms();
-}
 
+    List<Film> getTopPopularFilms(int count);
+
+    // новые методы
+    void addLike(int filmId, int userId);
+
+    void removeLike(int filmId, int userId);
+}

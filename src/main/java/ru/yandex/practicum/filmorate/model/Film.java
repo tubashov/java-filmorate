@@ -2,37 +2,46 @@ package ru.yandex.practicum.filmorate.model;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import ru.yandex.practicum.filmorate.validation.ReleaseDateConstraint;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Film {
+
     private int id;
 
     @NotBlank(message = "Название фильма не может быть пустым")
-    private String name;  // Название фильма
+    private String name;
 
-    @Size(min = 1, max = 200, message = "Описание не должно пустым и превышать 200 символов")
-    private String description;  // Краткое описание фильма
+    @Size(min = 1, max = 200, message = "Описание не должно быть пустым и не превышать 200 символов")
+    private String description;
 
     @NotNull(message = "Дата релиза обязательна")
-    @ReleaseDateConstraint  // Проверка корректности даты релиза
-    private LocalDate releaseDate;  // Дата релиза фильма
+    @ReleaseDateConstraint
+    private LocalDate releaseDate;
 
     @Positive(message = "Продолжительность должна быть положительной")
-    private int duration;  // Продолжительность фильма в минутах
+    private int duration;
 
-    // Множество id пользователей, которые поставили лайк этому фильму
     private Set<Integer> likes = new HashSet<>();
+    private Set<Genre> genres = new HashSet<>();
+    private int likesCount = 0;
 
-    // Жанры фильма (может быть несколько)
-    private Set<String> genres = new HashSet<>();
+    private Mpa mpa;       // теперь объект
+    private Integer mpaId; // временное поле для приёма "mpaId" в JSON
 
-    // Возрастной рейтинг MPA (одно значение)
-    private MpaRating mpa = MpaRating.NR;
-
-    // Ломбок @Data сгенерирует геттеры и сеттеры автоматически
+    // При JSON-входе поле "mpaId": 4 будет корректно установлено
+    @JsonSetter("mpaId")
+    public void setMpaId(Integer mpaId) {
+        this.mpaId = mpaId;
+    }
+    // При JSON-входе поле "mpa": { "id": 4, "name": "R" } Jackson сам вызовет setMpa(Mpa)
 }
